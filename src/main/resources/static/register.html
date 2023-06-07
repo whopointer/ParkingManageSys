@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -36,41 +36,52 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" name="addForm" onsubmit="beforeSubmit(this)">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                            placeholder="姓名">
                                     </div>
-                                    <div class="col-sm-6">
+                                    <!--<div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="exampleLastName"
                                             placeholder="Last Name">
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input type="email" class="form-control form-control-user" id="phone"
+                                        placeholder="手机号">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                               id="carId" placeholder="车牌号">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                               id="carColor" placeholder="车辆颜色(可空)">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="exampleInputPassword" placeholder="密码">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="exampleRepeatPassword" placeholder="确认密码">
+                                    </div>
+                                </div>
+                                <!--<a href="login.html" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
-                                <hr>
+                                </a>-->
+                                <input type="submit" value="确认" class="btn btn-primary btn-user btn-block">
+                             <!--   <hr>
                                 <a href="index.html" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Register with Google
                                 </a>
                                 <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                     <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+                                </a>-->
                             </form>
                             <hr>
                             <div class="text-center">
@@ -96,7 +107,20 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
+    <script type="text/javascript">
+        function beforeSubmit(addForm) {
+            let phone = /^[1][3,4,5,7,8,9][0-9]{9}$/;//设置手机号正则表达式
+            if (addForm.carId.value == "") {
+                alert("请输入车牌号！")
+                return false;
+            }
+            if (!phone.test(addForm.phone.value)) {
+                alert("手机号码错误！");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 
 </html>
