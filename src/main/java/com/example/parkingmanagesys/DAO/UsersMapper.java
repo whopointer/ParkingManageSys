@@ -1,4 +1,4 @@
-package com.example.parkingmanagesys.Dao;
+package com.example.parkingmanagesys.DAO;
 
 import com.example.parkingmanagesys.Pojo.User;
 import org.apache.ibatis.annotations.Mapper;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.parkingmanagesys.Dao.ParkingMapper">
+<mapper namespace="com.example.parkingmanagesys.DAO.ParkingMapper">
     <!--根据carId查spaceId-->
     <select id="selectByCarId" resultType="java.lang.Integer" parameterType="java.lang.String">
         SELECT Space_Id
