@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.parkingmanagesys.Dao.ParkingSpaceMapper">
+    <!--查询所有车位-->
+    <select id="selectAll" resultType="ParkingSpace">
+        SELECT *
+        FROM parking_space
+    </select>
+
+    <!--根据车位号修改车位信息-->
+    <update id="updateBySpaceId" parameterType="ParkingSpace">
+        UPDATE parking_space
+        SET Space_Type=#{spaceType},
+            Space_State=#{spaceState},
+            User_Name=#{userName},
+            Arrival_Time=#{arrivalTime}
+       WHERE Space_id=#{spaceId}
+    </update>
+</mapper>

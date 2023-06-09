@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.parkingmanagesys.Dao.UsersMapper">
+    <!--登录查询-->
+    <select id="selectByUserPhoneAndUserPassWord" resultType="user" parameterType="user">
+        SELECT *
+        FROM users
+        WHERE User_Name = #{userPhone}
+          AND User_PassWord = #{password}
+    </select>
+
+<!--查看所有车主-->
+    <select id="selectAll" resultType="user">
+        SELECT *
+        FROM users
+    </select>
+
+<!--    根据车辆id删除车主-->
+    <delete id="deleteByCarId" parameterType="java.lang.String">
+        DELETE
+        FROM users
+        WHERE Car_Id=#{carId}
+    </delete>
+
+<!--根据车辆id改车主信息-->
+    <update id="updateByCarId" parameterType="user">
+        UPDATE users
+        SET Coler=#{color},
+            User_Name=#{userName},
+            User_PassWord=#{userPassWord},
+            User_Phone=#{userPhone},
+            Card_Type=#{cardType},
+            Card_Num =#{cardNum}
+        WHERE Car_Id=#{carId}
+    </update>
+<!--    添加车主信息-->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO users(Car_Id,Color,User_Name,User_PassWord,User_Phone,Card_Type)
+        VALUES (#{carId},#{Color},#{userName},#{userPassWord},#{userPhone},#{cardType})
+    </insert>
+</mapper>

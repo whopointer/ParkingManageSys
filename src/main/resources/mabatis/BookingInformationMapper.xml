@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.parkingmanagesys.Dao.BookingInformationMapper">
+    <!--查询所有预定信息-->
+    <select id="selectAll" resultType="BookingInformation">
+        SELECT *
+        FROM booking_information
+    </select>
+
+<!--    根据id查询预定信息-->
+    <select id="selectByBookingId" resultType="BookingInformation" parameterType="java.lang.Integer">
+        SELECT *
+        FROM booking_information
+        WHERE Booking_Id=#{bookingId}
+    </select>
+
+    <!--根据id删除-->
+    <delete id="deleteByBookingId" parameterType="java.lang.Integer">
+        DELETE
+        FROM booking_information
+        WHERE Booking_Id=#{bookingId}
+    </delete>
+
+    <insert id="insertBookingTime" parameterType="BookingInformation">
+        INSERT INTO booking_information(Booking_Id,Booking_Time)
+        VALUES (#{bookingId},#{bookingTime})
+    </insert>
+
+<!--    只改到达时间和费用-->
+    <update id="updateByBookingId" parameterType="BookingInformation">
+        UPDATE Booking_Information
+        SET Arrival_Time=#{arrivalTime},
+            Booking_Fee=#{bookingFee}
+        WHERE Booking_Id=#{bookingId}
+    </update>
+
+</mapper>
