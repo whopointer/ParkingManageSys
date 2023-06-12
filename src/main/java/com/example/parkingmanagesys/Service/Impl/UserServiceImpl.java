@@ -43,7 +43,7 @@ private ParkingSpaceMapper parkingSpaceMapper;
     }
 
     @Override
-    public boolean updateBookingInformationByCarId(String carId,String date) throws ParseException {
+    public Integer updateBookingInformationByCarId(String carId,String date) throws ParseException {
         //查所有的车位，找到空闲车位，改为“预定”,得到spaceId
         ParkingSpace parkingSpace=new ParkingSpace();
         Integer spaceId;
@@ -67,7 +67,10 @@ private ParkingSpaceMapper parkingSpaceMapper;
         bookingInformation.setBookingTime(ft.parse(date));
         bookingInformationMapper.insertBookingTime(bookingInformation);
         //添加booking信息
-
-        return false;
+        Booking booking=new Booking();
+        booking.setBookingId(bookingInformation.getBookingId());
+        booking.setCarId(carId);
+        booking.setSpaceId(spaceId);
+        return spaceId;
     }
 }

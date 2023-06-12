@@ -11,6 +11,8 @@ public interface UsersMapper {
     User selectByUserPhoneAndUserPassWord(User user);
     //查看所有车主
     List<User> selectAll();
+    //根据车辆id查车主
+    User selectByCarId(String carId);
     //根据车辆id删除车主
     boolean deleteByCarId(String carId);
     //根据车辆id改车主
