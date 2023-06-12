@@ -1,6 +1,5 @@
 package com.example.parkingmanagesys.Pojo;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class ParkingSpace {
@@ -8,7 +7,7 @@ public class ParkingSpace {
     private String spaceType;
     private String spaceState;
     private String carId;
-    private Time arrivalTime;//记录车辆已经入场
+    private Date arrivalTime;//记录车辆已经入场
 private String realArrivalTime;
     private String realBookingTime;
     private String parkingCarId;
@@ -68,11 +67,11 @@ private String realArrivalTime;
         this.realBookingTime = realBookingTime;
     }
 
-    public Time getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

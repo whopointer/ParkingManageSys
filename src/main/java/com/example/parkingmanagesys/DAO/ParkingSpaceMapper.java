@@ -9,6 +9,10 @@ import java.util.List;
 public interface ParkingSpaceMapper {
     //查询所有车位
     List<ParkingSpace> selectAll();
+    //根据spaceId查询车位
+    ParkingSpace selectBySpaceId(Integer spaceId);
+    //根据carId查询车位
+    ParkingSpace selectByCarId(String carId);
     //根据车位号修改车位信息
     boolean updateBySpaceId(ParkingSpace parkingSpace);
 }

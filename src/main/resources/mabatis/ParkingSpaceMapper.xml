@@ -8,13 +8,24 @@
         SELECT *
         FROM parking_space
     </select>
-
+<!--    根据spaceId查询车位-->
+    <select id="selectByBookingId" resultType="ParkingSpace" parameterType="java.lang.Integer">
+        SELECT *
+        FROM parking_space
+        WHERE Space_Id=#{spaceId}
+    </select>
+<!-- 根据carId查询车位-->
+    <select id="selectByCarId" resultType="ParkingSpace" parameterType="java.lang.String">
+        SELECT *
+        FROM parking_space
+        WHERE Car_Id=#{carId}
+    </select>
     <!--根据车位号修改车位信息-->
     <update id="updateBySpaceId" parameterType="ParkingSpace">
         UPDATE parking_space
         SET Space_Type=#{spaceType},
             Space_State=#{spaceState},
-            User_Name=#{userName},
+            Car_Id=#{carId},
             Arrival_Time=#{arrivalTime}
        WHERE Space_id=#{spaceId}
     </update>

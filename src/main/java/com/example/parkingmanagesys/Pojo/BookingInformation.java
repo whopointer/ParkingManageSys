@@ -1,11 +1,11 @@
 package com.example.parkingmanagesys.Pojo;
 
-import java.sql.Time;
+import java.util.Date;
 
 public class BookingInformation {
     private Integer bookingId;
-    private Time bookingTime;
-    private Time arrivalTime;
+    private Date bookingTime;
+    private Date arrivalTime;
     private float bookingFee;
     private String realBookingTime;
     private String realArrivalTime;
@@ -18,19 +18,19 @@ public class BookingInformation {
         this.bookingId = bookingId;
     }
 
-    public Time getBookingTime() {
+    public Date getBookingTime() {
         return bookingTime;
     }
 
-    public void setBookingTime(Time bookingTime) {
+    public void setBookingTime(Date bookingTime) {
         this.bookingTime = bookingTime;
     }
 
-    public Time getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Time arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
