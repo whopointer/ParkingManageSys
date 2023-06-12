@@ -7,8 +7,8 @@
     <select id="selectByUserPhoneAndUserPassWord" resultType="user" parameterType="user">
         SELECT *
         FROM users
-        WHERE User_Name = #{userPhone}
-          AND User_PassWord = #{password}
+        WHERE User_Phone = #{userPhone}
+          AND User_PassWord = #{userPassWord}
     </select>
 
 <!--查看所有车主-->
@@ -27,7 +27,7 @@
 <!--根据车辆id改车主信息-->
     <update id="updateByCarId" parameterType="user">
         UPDATE users
-        SET Coler=#{color},
+        SET Color=#{color},
             User_Name=#{userName},
             User_PassWord=#{userPassWord},
             User_Phone=#{userPhone},
