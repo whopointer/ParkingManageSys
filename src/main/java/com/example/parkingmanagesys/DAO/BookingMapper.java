@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BookingMapper {
-    //根据carId查bookingId
+    //根据carId查询
     Booking selectByCarId(String carId);
-    //根据bookingId查询carId
+    //根据bookingId查询
     Booking selectByBookingId(Integer bookingId);
     //添加预约信息
     boolean insertBooking(Booking booking);
