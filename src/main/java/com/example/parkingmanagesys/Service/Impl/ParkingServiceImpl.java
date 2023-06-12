@@ -41,8 +41,10 @@ public class ParkingServiceImpl implements ParkingService {
             parkingSpace.setParkingCarId(parkingMapper.selectBySpaceId(parkingSpace.getSpaceId()));
             booking=bookingMapper.selectByCarId(parkingSpace.getParkingCarId());
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm");
+            if(booking!=null){
+                parkingSpace.setRealBookingTime(ft.format(bookingInformationMapper.selectByBookingId(booking.getBookingId()).getBookingTime()));
+            }
             parkingSpace.setRealArrivalTime(ft.format(parkingSpace.getArrivalTime()));
-            parkingSpace.setRealBookingTime(ft.format(bookingInformationMapper.selectByBookingId(booking.getBookingId()).getBookingTime()));
         }
         return parkingSpaceList;
     }
