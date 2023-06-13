@@ -9,6 +9,16 @@ public class User {
     private String cardType;
     private String cardNum;
 
+    public User(String carId, String color, String userName, String userPassWord, String userPhone, String cardType, String cardNum) {
+        this.carId = carId;
+        Color = color;
+        this.userName = userName;
+        this.userPassWord = userPassWord;
+        this.userPhone = userPhone;
+        this.cardType = cardType;
+        this.cardNum = cardNum;
+    }
+
     public String getCarId() {
         return carId;
     }

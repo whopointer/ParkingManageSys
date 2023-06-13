@@ -12,8 +12,6 @@ public interface UserService {
     public boolean deleteByCarId(String carId);
     //查看预定
     public BookingInformation selectBookingInformationByCarId(String carId);
-    //预定
-    public boolean updateBookingInformationByCarId(String carId);
-
-    boolean updateBookingInformationByCarId(String carId, String date) throws ParseException;
+    // 预定
+    public boolean updateBookingInformationByCarId(String carId, String date) throws ParseException;
 }

@@ -36,6 +36,7 @@ private ParkingSpaceMapper parkingSpaceMapper;
         return usersMapper.deleteByCarId(carId);
     }
 
+
     @Override
     public BookingInformation selectBookingInformationByCarId(String carId) {
         return bookingInformationMapper.selectByBookingId(bookingMapper.selectByCarId(carId).getBookingId());
