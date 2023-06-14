@@ -28,14 +28,15 @@ public class ProfileController {
     @RequestMapping("/editProfile")
     public String editProfile(User user,Model model,HttpSession session){
         User user1 = (User)session.getAttribute("user");
-        if(user.getUserName()!=null)user1.setUserName(user.getUserName());
-        if(user.getColor()!=null)user1.setColor(user.getColor());
-        if(userService.updateByCarId(user1)){
-            model.addAttribute("user",user1);
-            return "profile";
+        if(user.getUserName()!=""||user.getColor()!=""){
+            if(user.getUserName()!="")user1.setUserName(user.getUserName());
+            if(user.getColor()!="")user1.setColor(user.getColor());
+            if(userService.updateByCarId(user1)){
+                model.addAttribute("user",user1);
+                return "profile";
+            }
         }
-        else {
-            return "edit-profile";
-        }
+        model.addAttribute("user",user1);
+        return "profile";
     }
 }
