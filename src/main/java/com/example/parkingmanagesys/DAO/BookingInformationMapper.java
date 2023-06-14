@@ -9,12 +9,15 @@ import java.util.List;
 public interface BookingInformationMapper {
     //查询所有预定信息
     List<BookingInformation> selectAll();
+    BookingInformation selectBookingInformationBySpaceId(Integer spaceId);
+    //根据车辆id查询
+    BookingInformation selectBookingInformationByCarId(String carId);
     //根据id查询预信息
     BookingInformation selectByBookingId(Integer bookingId);
     //根据id删除
     Boolean deleteByBookingId(Integer bookingId);
     //插入预定信息
-    Boolean insertBookingTime(BookingInformation bookingInformation);
+    Boolean insertInformation(BookingInformation bookingInformation);
     //只改到达时间和费用
     Boolean updateByBookingId(BookingInformation bookingInformation);
 }

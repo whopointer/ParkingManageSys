@@ -10,10 +10,22 @@
     </select>
 
 <!--    根据id查询预定信息-->
-    <select id="selectByBookingId" resultType="BookingInformation" parameterType="java.lang.Integer">
+    <select id="selectBookingInformationByBookingId" resultType="BookingInformation" parameterType="java.lang.Integer">
         SELECT *
         FROM booking_information
         WHERE Booking_Id=#{bookingId}
+    </select>
+<!--根据Space_Id查询预定信息-->
+    <select id="selectBySpaceId" resultType="BookingInformation" parameterType="java.lang.Integer">
+        SELECT *
+        FROM booking_information
+        WHERE Space_Id=#{spaceId}
+    </select>
+    根据车辆id查询
+    <select id="selectBookingInformationByCarId" resultType="BookingInformation" parameterType="java.lang.String">
+        SELECT *
+        FROM booking_information
+        WHERE Car_Id=#{carId}
     </select>
 
     <!--根据id删除-->
@@ -23,9 +35,9 @@
         WHERE Booking_Id=#{bookingId}
     </delete>
 
-    <insert id="insertBookingTime" parameterType="BookingInformation">
-        INSERT INTO booking_information(Booking_Id,Booking_Time)
-        VALUES (#{bookingId},#{bookingTime})
+    <insert id="insertBookingInformation" parameterType="BookingInformation">
+        INSERT INTO booking_information(Booking_Id,Space_Id,Car_Id,Booking_Time)
+        VALUES (#{bookingId},#{spaceId},#{carId},#{bookingTime})
     </insert>
 
 <!--    只改到达时间和费用-->

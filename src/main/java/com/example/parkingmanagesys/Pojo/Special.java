@@ -1,19 +1,8 @@
 package com.example.parkingmanagesys.Pojo;
 
-import java.util.Date;
-
-public class Parking {
+public class Special {
     private String carId;
     private Integer spaceId;
-    private Date arrivalTime;
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
 
     public String getCarId() {
         return carId;
