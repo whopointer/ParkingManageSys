@@ -37,7 +37,7 @@
     </update>
 <!--    添加车主信息-->
     <insert id="insertUser" parameterType="User">
-        INSERT INTO users(Car_Id,Color,User_Name,User_PassWord,User_Phone,Card_Type)
+        INSERT INTO users(Car_Id,Color,User_Name,User_PassWord,User_Phone,Card_Type,CardNum)
         VALUES (#{carId},#{Color},#{userName},#{userPassWord},#{userPhone},#{cardType})
     </insert>
 </mapper>

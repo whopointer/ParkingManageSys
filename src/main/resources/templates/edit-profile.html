@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -14,20 +14,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>违规信息查询</title>
+    <title>修改个人资料</title>
 
     <!-- 自定义模板字体 -->
     <!--引入名为all.min的CSS文件-->
-    <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/vendor/fontawesome-free/css/all.min.css" th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
 
-    <!-- 自定义CSS样式 -->
-    <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="../static/css/sb-admin-2.min.css" th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
 
     <!-- 自定义界面 -->
-    <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" th:href="@{vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
     <style type="text/css">
         .form-control-plaintext{
             text-decoration: underline;
@@ -50,7 +50,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!--点击左上图标跳转首页-->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center"th:href="@{user-index.html}" href="user-index.html">
             <!--车场图标-->
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-car"></i>
@@ -63,7 +63,7 @@
 
         <!-- 第一个导航栏 -->
         <li class="nav-item">
-            <a class="nav-link" href="user-index.html">
+            <a class="nav-link" th:href="@{user-index.html}" href="user-index.html">
                 <i class="fas fa-dove"></i>
                 <span>车场资讯</span></a>
         </li>
@@ -82,7 +82,7 @@
         </li>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="profile.html">
+            <a class="nav-link" th:href="@{/profile}" href="profile.html">
                 <i class="fas fa-user"></i>
                 <span>个人中心</span></a>
         </li>
@@ -156,13 +156,13 @@
 
             <!-- 页面内容开始标志 -->
             <div class="container-fluid">
-                <form action="profile.html" method="post" name="editProfile">
+                <form th:action="@{editProfile}" action="profile.html" method="post" name="editProfile">
                     <div class="container rounded bg-white mt-5 mb-5">
                         <div class="row">
                             <div class="col-md-3 border-right">
                                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                     <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                    <span class="font-weight-bold">小黑子</span><span class="text-black-50">1596118915@qq.com</span>
+                                    <span class="font-weight-bold" th:text="${user.userName}" >小黑子</span>
                                     <span> </span>
                                 </div>
                             </div>
@@ -172,19 +172,21 @@
                                         <h4 class="text-right">Your Profile</h4>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-6"><label class="labels">姓名：</label><input type="text" class="form-control" placeholder="name" value=""></div>
+                                        <div class="col-md-6"><label class="labels">姓名：</label><input type="text" class="form-control" name="userName" placeholder="name" value=""></div>
                                     </div>
                                     <hr>
                                     <div class="row mt-3">
-                                        <div class="col-md-6"><label class="labels">国家：</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                                        <div class="col-md-6"><label class="labels">手机号码：</label><span class="form-control-plaintext">114514</span></div>
-                                        <div class="col-md-6"><label class="labels">家庭地址：</label><input type="text" class="form-control" placeholder="address" value=""></div>
-                                        <div class="col-md-6"><label class="labels">邮政编码：</label><input type="text" class="form-control" placeholder="000000" value=""></div>
+                                        <!--<div class="col-md-6"><label class="labels">国家：</label><input type="text" class="form-control" placeholder="country" value=""></div>-->
+                                        <div class="col-md-6"><label class="labels">手机号码：</label><span class="form-control-plaintext" name="userPhone" th:text="${user.userPhone}" >114514</span></div>
+                                        <div class="col-md-6"><label class="labels">卡号:</label><span class="form-control-plaintext" name="cardNum" th:text="${user.cardNum}">2023612123</span></div>
+                                        <div class="col-md-6"><label class="labels">卡号类型:</label><span class="form-control-plaintext" name="cardType" th:text="${user.cardType}">永久</span></div>
+                                        <!--<div class="col-md-6"><label class="labels">家庭地址：</label><input type="text" class="form-control" placeholder="address" value=""></div>
+                                        <div class="col-md-6"><label class="labels">邮政编码：</label><input type="text" class="form-control" placeholder="000000" value=""></div>-->
                                     </div>
                                     <hr>
                                     <div class="row mt-3">
-                                        <div class="col-md-6"><label class="labels">车辆类型:</label><input type="text" class="form-control" placeholder="car" value=""></div>
-                                        <div class="col-md-6"><label class="labels">车牌号码:</label><input type="text" class="form-control" placeholder="carId" value=""></div>
+                                        <div class="col-md-6"><label class="labels">车牌号码:</label><span class="form-control-plaintext" name="carId" th:text="${user.carId}">苏A-888888</span><span class="underline"><u></u></span></div>
+                                        <div class="col-md-6"><label class="labels">车辆颜色:</label><input type="text" class="form-control" name="Color" placeholder="color" value=""></div>
                                     </div>
                                     <div class="mt-5 text-center"><input type="submit" class="btn btn-primary profile-button" value="保存修改"></div>
                                 </div>
@@ -235,28 +237,28 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" th:href="@{/}" href="login.html">Logout</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="../static/vendor/jquery/jquery.min.js"></script>
-<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
+<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}" src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../static/js/sb-admin-2.min.js"></script>
+<script th:src="@{js/sb-admin-2.min.js}" src="../static/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script th:src="@{vendor/datatables/jquery.dataTables.min.js}" src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script th:src="@{vendor/datatables/dataTables.bootstrap4.min.js}" src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../static/js/demo/datatables-demo.js"></script>
+<script th:src="@{js/demo/datatables-demo.js}" src="../static/js/demo/datatables-demo.js"></script>
 
 </body>
 

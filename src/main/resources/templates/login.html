@@ -28,7 +28,7 @@
                 alert("请输入手机号！");
                 return false;
             }
-            if (!phone.test(loginForm.userPhone.value)) {
+            if (loginForm.userPhone.value != "admin" && !phone.test(loginForm.userPhone.value)) {
                 alert("手机号码错误！");
                 return false;
             }
@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="password" name="userPassword" placeholder="Password">
+                                                id="password" name="userPassWord" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -87,7 +87,7 @@
                                         <a class="small" href="../static/forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" th:href="@{/toSignIn}" href="register.html">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

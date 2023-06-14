@@ -3,6 +3,7 @@ package com.example.parkingmanagesys.Controller;
 import com.example.parkingmanagesys.DAO.UsersMapper;
 import com.example.parkingmanagesys.Pojo.User;
 import com.example.parkingmanagesys.Service.LoginService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +21,9 @@ public class LoginController {
         return "login";
     }
     @PostMapping("/login")
-    public String login(User user, Model model) {
+    public String login(User user, Model model,HttpSession session) {
         User user1 = loginService.selectByUserPhoneAndUserPassWord(user);
-        System.out.println(user.getUserPhone());
+
         // 这里可以进行登录验证逻辑
         if (user.getUserPhone().equals("admin") && user.getUserPassWord().equals("123456")) {
             // 登录成功
@@ -30,11 +31,23 @@ public class LoginController {
             return "index";  // 重定向到首页或其他页面
         } else if (user1 != null){
             model.addAttribute("msg", "登录成功");
+            session.setAttribute("user",user1);
+            model.addAttribute("user",user1);
             return "user-index";
         }
         else {
             model.addAttribute("msg", "用户名或密码错误，请重新登录");
             return "login";
         }
+    }
+    @RequestMapping("/userIndex")
+    public String toUserIndex(Model model,HttpSession session){
+        User user = (User)session.getAttribute("user");
+        model.addAttribute("user",user);
+        return "user-index";
+    }
+    @RequestMapping("/index")
+    public String toIndex(){
+        return "index";
     }
 }
