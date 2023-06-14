@@ -1,0 +1,72 @@
+<!--用户信息管理界面-->
+<!-- 模态框 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModaltabel">插入用户信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- 表单 -->
+        <form action="http://localhost:8080/save">
+          <!--插入车牌号-->
+          <div class="form-group">
+            <label for="exampleInputcarId">车牌号</label>
+            <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
+            <div class="invalid-feedback">
+              输入不正确!示例：苏A12345
+            </div>
+          </div>
+            <!--插入车颜色-->
+            <div class="form-group">
+              <label for="exampleInputColor">颜色</label>
+              <input type="text" class="form-control" name = "Color" id="exampleInputColor" aria-describedby="ColorHelp" placeholder="请输入颜色">
+            </div>
+            <!--插入用户名-->
+            <div class="form-group">
+              <label for="exampleInputuserName">用户名</label>
+              <input type="text" class="form-control" name = "userName" id="exampleInputuserName" aria-describedby="userNameHelp" placeholder="请输入用户名">
+            </div>
+            <!--插入用户密码-->
+            <div class="form-group">
+              <label for="exampleInputuserPassWord">密码</label>
+              <input type="text" class="form-control" name = "userPassWord" id="exampleInputuserPassWord" aria-describedby="userPassWordHelp" placeholder="请输入密码">
+            </div>
+            <!--插入用户手机号-->
+            <div class="form-group">
+              <label for="exampleInputuserPhone">手机号</label>
+              <input type="text" class="form-control" data-toggle="tooltip" name = "userPhone" id="exampleInputuserPhone" aria-describedby="userPhoneHelp" placeholder="请输入手机号">
+              <div class="invalid-feedback">
+                请输入正确的中国大陆手机格式
+              </div>
+            </div>
+              <!--插入用户卡类型-->
+              <div class="form-group">
+                <label for="exampleInputcardType">用户卡类型</label>
+                <input type="text" class="form-control" name = "cardType" id="exampleInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入用户卡类型">
+                <div class="invalid-feedback">
+                  输入不正确!应为：Permanent 或 Temporary
+                </div>
+              </div>
+                <!--插入用户卡号-->
+                <div class="form-group">
+                  <label for="exampleInputcardNum">用户卡号</label>
+                  <input type="text" class="form-control" name = "cardNum" id="exampleInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
+                  <div class="invalid-feedback">
+                    输入不正确!示例：A00001
+                  </div>
+                </div>
+                <div style="text-align:center; width:100%;height:100%;margin:0px;">
+                  <button type="submit" class="btn btn-primary">提交</button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="reset" class="btn btn-primary">重置</button>
+                </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

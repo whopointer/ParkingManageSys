@@ -18,16 +18,22 @@
 
   <!-- 自定义模板字体 -->
   <!--引入名为all.min的CSS文件-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
   <!-- 自定义CSS样式 -->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
 
   <!-- 自定义界面 -->
-  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <!-- 引入 Bootstrap 和 JQuery 库 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 
 </head>
 
@@ -46,7 +52,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!--点击左上图标跳转首页-->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../static/index.html">
       <!--车场图标-->
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-car"></i>
@@ -59,7 +65,7 @@
 
     <!-- 第一个导航栏 -->
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="../static/index.html">
         <i class="fas fa-dove"></i>
         <span>车场资讯</span></a>
     </li>
@@ -83,7 +89,7 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">选择需要查询的内容：</h6>
-          <a class="collapse-item" href="View_UsersInformation.html">用户信息</a>
+          <a class="collapse-item" href="../static/View_UsersInformation.html">用户信息</a>
           <a class="collapse-item" href="#">车位信息</a>
         </div>
       </div>
@@ -91,7 +97,7 @@
 
     <!-- 历史停车 -->
     <li class="nav-item">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="../static/index.html">
         <i class="fas fa-history"></i>
         <span>历史停车</span></a>
     </li>
@@ -115,8 +121,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">请选择需要管理的信息:</h6>
           <a class="collapse-item" href="Modify_UsersInformation.html">用户信息</a>
-          <a class="collapse-item" href="forgot-password.html">车位信息</a>
-          <a class="collapse-item" href="blank.html">违规信息</a>
+          <a class="collapse-item" href="../static/forgot-password.html">车位信息</a>
+          <a class="collapse-item" href="../static/blank.html">违规信息</a>
 
         </div>
       </div>
@@ -124,14 +130,14 @@
 
     <!-- 车场收入 -->
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
+      <a class="nav-link" href="../static/charts.html">
         <i class="fas fa-yen-sign"></i>
         <span>车场收入</span></a>
     </li>
 
     <!-- 违规管理 -->
     <li class="nav-item active">
-      <a class="nav-link" href="Query_Violation.html">
+      <a class="nav-link" href="../static/Query_Violation.html">
         <i class="fas fa-exclamation-triangle"></i>
         <span>违规信息查看</span></a>
     </li>
@@ -181,7 +187,7 @@
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
               <img class="img-profile rounded-circle"
-                   src="img/undraw_mypic.jpg">
+                   src="../static/img/undraw_mypic.jpg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -212,80 +218,58 @@
       <!-- 顶部导航栏结束标志 -->
 
       <!-- 页面内容开始标志 -->
-      <div class="container-fluid">
-
-        <!-- 表头 -->
-        <h1 class="h3 mb-2 text-gray-800">车位信息查询</h1>
-
-
-        <!-- 违规数据表格 -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">违规信息</h6>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                <tr>
-                  <th>车位号</th>
-                  <th>车位类型</th>
-                  <th>车位状态</th>
-                </tr>
-                </thead>
-                <tfoot>
-                <tr>
-                  <th>车位号</th>
-                  <th>车位类型</th>
-                  <th>车位状态</th>
-                </tr>
-                </tfoot>
-                <!--数据库查询内容，后期编写-->
-                <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>专用车位</td>
-                  <td>损坏</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>公用车位</td>
-                  <td>预定</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>公用车位</td>
-                  <td>忙碌</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>专用车位</td>
-                  <td>空闲</td>
-                </tr>
-                </tbody>
-              </table>
+      <!-- 模态窗口 -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">插入用户信息</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              插入失败！
+            </div>
+            <div class="modal-footer">
+              <div style="text-align:center; width:100%;height:100%;margin:0px;">
+                <!--              <button type="button" class="btn btn-secondary" data-dismiss="modal">返回</button>-->
+                <!--                <a class="btn btn-primary" href="View_UsersInformation.html">返回</a>-->
+                <a class="btn btn-primary" href="Modify_UsersInformation.html">重新添加</a>
+                <a class="btn btn-primary" href="index.html">返回首页</a>
+              </div>
+              <!--              <button type="button" class="btn btn-primary">保存更改</button>-->
             </div>
           </div>
         </div>
-
       </div>
-      <!-- /.container-fluid -->
 
+      <!-- 在页面加载时自动触发模态窗口 -->
+      <script>
+        $(window).on('load',function(){
+          $('#exampleModal').modal('show');
+        });
+      </script>
     </div>
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; 南京的爷就是爷</span>
-        </div>
-      </div>
-    </footer>
-    <!-- End of Footer -->
 
   </div>
-  <!-- End of Content Wrapper -->
+  <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; 南京的爷就是爷</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->
@@ -296,41 +280,24 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">是否注销当前用户?</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">点击“注销”将注销当前用户</div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">返回</button>
-        <a class="btn btn-primary" href="login.html">注销</a>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
+<script src="../static/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="js/demo/datatables-demo.js"></script>
+<script src="../static/js/demo/datatables-demo.js"></script>
 
 </body>
 
