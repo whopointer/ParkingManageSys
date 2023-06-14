@@ -9,16 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Register</title>
 
     <!-- Custom fonts for this template-->
-    <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../static/vendor/fontawesome-free/css/all.min.css"th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../static/css/sb-admin-2.min.css" th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
 
 </head>
 
@@ -36,11 +36,11 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" method="post" name="addForm" onsubmit="beforeSubmit(this)">
+                            <form class="user" method="post" name="addForm" onsubmit="beforeSubmit(this)" th:action="@{/signIn}">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="姓名">
+                                            placeholder="姓名" name="userName">
                                     </div>
                                     <!--<div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="exampleLastName"
@@ -48,27 +48,27 @@
                                     </div>-->
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="phone"
+                                    <input type="text" class="form-control form-control-user" id="phone" name="userPhone"
                                         placeholder="手机号">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="carId" placeholder="车牌号">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="carId" name="carId" placeholder="车牌号">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                               id="carColor" placeholder="车辆颜色(可空)">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="carColor" name="Color" placeholder="车辆颜色(可空)">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="密码">
+                                            id="Password1" name="userPassWord" placeholder="密码">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="确认密码">
+                                            id="Password2" name="confirmPassWord" placeholder="确认密码">
                                     </div>
                                 </div>
                                 <!--<a href="login.html" class="btn btn-primary btn-user btn-block">
@@ -117,6 +117,10 @@
             if (!phone.test(addForm.phone.value)) {
                 alert("手机号码错误！");
                 return false;
+            }
+            if(addForm.userPassWord.value!=addForm.confirmPassWord.value){
+                alert("两次密码不一致！")
+                return false
             }
             return true;
         }

@@ -50,7 +50,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!--点击左上图标跳转首页-->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/userIndex}" href="user-index.html">
             <!--车场图标-->
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-car"></i>
@@ -63,7 +63,7 @@
 
         <!-- 第一个导航栏 -->
         <li class="nav-item">
-            <a class="nav-link" href="user-index.html">
+            <a class="nav-link" th:href="@{/userIndex}" href="user-index.html">
                 <i class="fas fa-dove"></i>
                 <span>车场资讯</span></a>
         </li>
@@ -122,9 +122,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${user.userName}">Admin</span>
                             <img class="img-profile rounded-circle"
-                                 src="../static/img/undraw_mypic.jpg">
+                                 th:src="@{img/undraw_mypic.jpg}" src="../static/img/undraw_mypic.jpg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -148,13 +148,13 @@
 
             <!-- 页面内容开始标志 -->
             <div class="container-fluid">
-                <form action="edit-profile.html" method="post">
+                <form th:action="@{toEditProfile}" action="edit-profile.html" method="post">
                     <div class="container rounded bg-white mt-5 mb-5">
                         <div class="row">
                             <div class="col-md-3 border-right">
                                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                     <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                                    <span class="font-weight-bold" th:text="${user.userName}">小黑子</span>
+                                    <span class="font-weight-bold" name="userName" th:text="${user.userName}" >小黑子</span>
                                     <span> </span>
                                 </div>
                             </div>
@@ -164,21 +164,21 @@
                                         <h4 class="text-right">Your Profile</h4>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-6"><label class="labels">姓名：</label><span class="form-control-plaintext" th:text="${user.userName}">小黑子</span></div>
+                                        <div class="col-md-6"><label class="labels">姓名：</label><span class="form-control-plaintext" name="userName" th:text="${user.userName}">小黑子</span></div>
                                     </div>
                                     <hr>
                                     <div class="row mt-3">
                                         <!--<div class="col-md-6"><label class="labels">国家：</label><span class="form-control-plaintext" th:text="{}">中国</span></div>-->
-                                        <div class="col-md-6"><label class="labels">手机号码：</label><span class="form-control-plaintext" th:text="${user.userPhone}">114514</span></div>
-                                        <div class="col-md-6"><label class="labels">卡号:</label><span class="form-control-plaintext" th:text="${user.cardType}">2023612123</span></div>
-                                        <div class="col-md-6"><label class="labels">卡号类型:</label><span class="form-control-plaintext" th:text="${user.cardType}">永久</span></div>
+                                        <div class="col-md-6"><label class="labels">手机号码：</label><span class="form-control-plaintext" name="userPhone" th:text="${user.userPhone}" >114514</span></div>
+                                        <div class="col-md-6"><label class="labels">卡号:</label><span class="form-control-plaintext" name="cardNum" th:text="${user.cardNum}" >2023612123</span></div>
+                                        <div class="col-md-6"><label class="labels">卡号类型:</label><span class="form-control-plaintext" name="cardType" th:text="${user.cardType}">永久</span></div>
                                         <!--<div class="col-md-6"><label class="labels">家庭地址：</label><span class="form-control-plaintext">江苏省南京市栖霞区仙林街道文苑路9号</span></div>
                                         <div class="col-md-6"><label class="labels">邮政编码：</label><span class="form-control-plaintext">225800</span></div>-->
                                     </div>
                                     <hr>
                                     <div class="row mt-3">
-                                        <div class="col-md-6"><label class="labels">车牌号码:</label><span class="form-control-plaintext" th:text="${user.carId}">苏A-888888</span><span class="underline"><u></u></span></div>
-                                        <div class="col-md-6"><label class="labels">车辆颜色:</label><span class="form-control-plaintext" th:text="${user.Color}">黄色</span></div>
+                                        <div class="col-md-6"><label class="labels">车牌号码:</label><span class="form-control-plaintext" name="carId" th:text="${user.carId}">苏A-888888</span><span class="underline"><u></u></span></div>
+                                        <div class="col-md-6"><label class="labels">车辆颜色:</label><span class="form-control-plaintext" name="color" th:text="${user.color}">黄色</span></div>
                                     </div>
                                     <div class="mt-5 text-center"><input type="submit"class="btn btn-primary profile-button" value="修改个人资料"></div>
                                 </div>
@@ -229,28 +229,28 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" th:href="@{/}" href="login.html">Logout</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="../static/vendor/jquery/jquery.min.js"></script>
-<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
+<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}" src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../static/js/sb-admin-2.min.js"></script>
+<script th:src="@{js/sb-admin-2.min.js}" src="../static/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script th:src="@{vendor/datatables/jquery.dataTables.min.js}" src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script th:src="@{vendor/datatables/dataTables.bootstrap4.min.js}" src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../static/js/demo/datatables-demo.js"></script>
+<script th:src="@{js/demo/datatables-demo.js}" src="../static/js/demo/datatables-demo.js"></script>
 
 </body>
 
