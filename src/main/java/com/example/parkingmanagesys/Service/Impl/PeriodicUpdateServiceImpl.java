@@ -1,7 +1,6 @@
 package com.example.parkingmanagesys.Service.Impl;
 
 import com.example.parkingmanagesys.DAO.BookingInformationMapper;
-import com.example.parkingmanagesys.DAO.BookingMapper;
 import com.example.parkingmanagesys.Pojo.BookingInformation;
 import com.example.parkingmanagesys.Service.PeriodicUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;

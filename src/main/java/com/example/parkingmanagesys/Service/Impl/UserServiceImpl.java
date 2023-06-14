@@ -1,10 +1,8 @@
 package com.example.parkingmanagesys.Service.Impl;
 
 import com.example.parkingmanagesys.DAO.BookingInformationMapper;
-import com.example.parkingmanagesys.DAO.BookingMapper;
 import com.example.parkingmanagesys.DAO.ParkingSpaceMapper;
 import com.example.parkingmanagesys.DAO.UsersMapper;
-import com.example.parkingmanagesys.Pojo.Booking;
 import com.example.parkingmanagesys.Pojo.BookingInformation;
 import com.example.parkingmanagesys.Pojo.ParkingSpace;
 import com.example.parkingmanagesys.Pojo.User;
@@ -37,13 +35,18 @@ private ParkingSpaceMapper parkingSpaceMapper;
         return usersMapper.deleteByCarId(carId);
     }
 
+
     @Override
     public BookingInformation selectBookingInformationByCarId(String carId) {
         return bookingInformationMapper.selectByBookingId(bookingMapper.selectByCarId(carId).getBookingId());
     }
 
     @Override
+<<<<<<< HEAD
     public Integer updateBookingInformationByCarId(String carId,String date) throws ParseException {
+=======
+    public boolean updateBookingInformationByCarId(String carId, String date) throws ParseException {
+>>>>>>> e8ba51fa0e149bd7cd14c6547e9012250ac922d0
         //查所有的车位，找到空闲车位，改为“预定”,得到spaceId
         ParkingSpace parkingSpace=new ParkingSpace();
         Integer spaceId;

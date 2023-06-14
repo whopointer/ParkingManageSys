@@ -6,11 +6,18 @@ public class ParkingSpace {
     private Integer spaceId;
     private String spaceType;
     private String spaceState;
-    private String carId;
-    private Date arrivalTime;//记录车辆已经入场
 private String realArrivalTime;
     private String realBookingTime;
     private String parkingCarId;
+    private String bookingCarId;
+
+    public String getBookingCarId() {
+        return bookingCarId;
+    }
+
+    public void setBookingCarId(String bookingCarId) {
+        this.bookingCarId = bookingCarId;
+    }
 
     public String getParkingCarId() {
         return parkingCarId;
@@ -18,14 +25,6 @@ private String realArrivalTime;
 
     public void setParkingCarId(String parkingCarId) {
         this.parkingCarId = parkingCarId;
-    }
-
-    public String getCarId() {
-        return carId;
-    }
-
-    public void setCarId(String carId) {
-        this.carId = carId;
     }
     public Integer getSpaceId() {
         return spaceId;
@@ -67,13 +66,7 @@ private String realArrivalTime;
         this.realBookingTime = realBookingTime;
     }
 
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
 
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
 
 
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class BookingInformation {
     private Integer bookingId;
+    private Integer spaceId;
+    private String carId;
     private Date bookingTime;
     private Date arrivalTime;
     private float bookingFee;
@@ -17,7 +19,20 @@ public class BookingInformation {
     public void setBookingId(Integer bookingId) {
         this.bookingId = bookingId;
     }
+    public Integer getSpaceId() {
+        return spaceId;
+    }
+    public void setSpaceId(Integer spaceId) {
+        this.spaceId = spaceId;
+    }
 
+    public String getCarId() {
+        return carId;
+    }
+
+    public void setCarId(String carId) {
+        this.carId = carId;
+    }
     public Date getBookingTime() {
         return bookingTime;
     }
