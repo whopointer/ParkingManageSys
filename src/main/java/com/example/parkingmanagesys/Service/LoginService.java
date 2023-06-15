@@ -7,4 +7,5 @@ public interface LoginService {
     public User selectByUserPhoneAndUserPassWord(User user);
     //注册
     public boolean insertUser(User user);
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -18,7 +18,7 @@
 
   <!-- 自定义模板字体 -->
   <!--引入名为all.min的CSS文件-->
-  <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" th:href="@{vendor/fontawesome-free/css/all.min.css}" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -136,7 +136,7 @@
     </li>
 
     <!-- 违规管理 -->
-    <li class="nav-item active">
+    <li class="nav-item">
       <a class="nav-link" href="../static/Query_Violation.html">
         <i class="fas fa-exclamation-triangle"></i>
         <span>违规信息查看</span></a>
@@ -144,6 +144,13 @@
 
     <!-- 分割线 -->
     <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- 违规管理 -->
+    <li class="nav-item">
+      <a class="nav-link" href="Vichcle_InOut.html">
+        <i class="fas fa-warehouse"></i>
+        <span>车辆进出</span></a>
+    </li>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <!--切换侧边栏的可见性(自适应屏幕)-->
@@ -229,7 +236,7 @@
               </button>
             </div>
             <div class="modal-body">
-              插入失败！
+              插入失败，请确保车牌号、手机号以及停车卡号无重复后重新添加！
             </div>
             <div class="modal-footer">
               <div style="text-align:center; width:100%;height:100%;margin:0px;">
