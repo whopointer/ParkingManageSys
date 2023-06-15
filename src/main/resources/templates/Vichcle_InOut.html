@@ -50,12 +50,21 @@
           $(this).addClass('is-invalid');
         }
       });
-      $("")
     });
 
-    function submit_form(){
-      $("#exampleModal3").modal();
-    };
+    $(function(){
+      hint1();//页面加载时加载
+    })
+    function hint1(){
+      var spaceId = $("#spaceId").val();
+      var fee = $("#fee").val();
+      if (spaceId!=''){
+        alert("车位号："+spaceId);
+      }
+      if(fee!=''){
+        alert("总计费用："+fee);
+      }
+    }
 
   </script>
 
@@ -63,6 +72,8 @@
 </head>
 
 <body id="page-top">
+<input type="hidden" id="spaceId" th:value="${spaceId}" >
+<input type="hidden" id="fee" th:value="${fee}" >
 
 <!--页面包装器-->
 <div id="wrapper">
@@ -192,6 +203,7 @@
       </div>
     </li>
 
+
     <!-- Sidebar Toggler (Sidebar) -->
     <!--切换侧边栏的可见性(自适应屏幕)-->
     <div class="text-center d-none d-md-inline">
@@ -314,7 +326,7 @@
             </div>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" class="btn btn-primary" onsubmit="submit_form()">提交</button>
+            <button type="submit" class="btn btn-primary">提交</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-primary">重置</button>
           </div>
@@ -337,7 +349,7 @@
         </div>
         <div class="modal-body">
           <!-- 表单 -->
-          <form action="http://localhost:8080/save">
+          <form th:action="@{/parking/carOut}">
             <!--插入车牌号-->
             <div class="form-group">
               <label for="exampleInputcarId">车牌号</label>
@@ -356,29 +368,6 @@
       </div>
     </div>
   </div>
-
-<!--  车辆入场后-->
-  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModaltabel3">入场信息</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label for="exampleInputcarId">车牌号</label>
-          <!-- 表单 -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-
 <!-- Bootstrap core JavaScript-->
 <script src="../static/vendor/jquery/jquery.min.js"></script>
 <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

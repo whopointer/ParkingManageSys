@@ -88,15 +88,16 @@ public class ParkingServiceImpl implements ParkingService {
         if(bookingInformation!=null&&bookingInformation.getArrivalTime()==null) {
             //插入一条新的停车信息
             parking.setCarId(carId);
-            parking.setSpaceId(parkingSpace.getSpaceId());
+            parking.setSpaceId(bookingInformation.getSpaceId());
             parking.setArrivalTime(new Date());
             parkingMapper.insertParking(parking);
             //修改book_information的到达时间、费用
             bookingInformation.setArrivalTime(new Date());
             //计算差多少小时
             long diff=bookingInformation.getArrivalTime().getTime()-bookingInformation.getBookingTime().getTime();
-            long hour=diff%(1000*24*60*60)/(1000*60*60);
-            bookingInformation.setBookingFee(hour*6);
+            long hour=diff/1000/60/60;
+            bookingInformation.setBookingFee((int)hour*6);
+            bookingInformation.setBookingState("Finished");
             bookingInformationMapper.updateByBookingId(bookingInformation);
             return bookingInformation.getSpaceId();
         }
@@ -157,10 +158,10 @@ public class ParkingServiceImpl implements ParkingService {
 
         Float fee;
         //普通车辆
-        parkingSpace.setSpaceState("spare");
+        parkingSpace.setSpaceState("Spare");
         //计算差多少小时
-        long diff=new Time(0).getTime()-parking.getArrivalTime().getTime();
-        long hour=diff%(1000*24*60*60)/(1000*60*60);
+        long diff=new Date().getTime()-parking.getArrivalTime().getTime();
+        long hour=diff/1000/60/60;
         fee=(float)hour*6;
         //删除停车信息
         parkingMapper.deleteByCarId(carId);
@@ -168,7 +169,6 @@ public class ParkingServiceImpl implements ParkingService {
         BookingInformation bookingInformation=bookingInformationMapper.selectBookingInformationByCarId(carId);
         if(bookingInformation!=null) {
             fee+=bookingInformation.getBookingFee();
-            bookingInformationMapper.deleteByBookingId(bookingInformation.getBookingId());
         }
         return fee;
     }

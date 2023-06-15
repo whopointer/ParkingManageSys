@@ -45,7 +45,7 @@
         UPDATE Booking_Information
         SET Arrival_Time=#{arrivalTime},
             Booking_Fee=#{bookingFee},
-            Booking_State=#{bookingState},
+            Booking_State=#{bookingState}
         WHERE Booking_Id=#{bookingId}
     </update>
 

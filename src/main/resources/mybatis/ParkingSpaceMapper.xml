@@ -9,7 +9,7 @@
         FROM parking_space
     </select>
 <!--    根据spaceId查询车位-->
-    <select id="selectByBookingId" resultType="ParkingSpace" parameterType="java.lang.Integer">
+    <select id="selectBySpaceId" resultType="ParkingSpace" parameterType="java.lang.Integer">
         SELECT *
         FROM parking_space
         WHERE Space_Id=#{spaceId}
