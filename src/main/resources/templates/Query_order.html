@@ -43,7 +43,12 @@
       background-color: #d4edda; /* Apply your desired style for completed orders */
     }
   </style>
-
+  <script th:inline="javascript">
+    var msg = [[${msg}]];
+    if(msg!=null)
+      alert(msg);
+    // 显示警告框
+  </script>
 </head>
 
 <body id="page-top">
@@ -194,23 +199,23 @@
                   <th>订单状态</th>
                 </tr>
                 </tfoot>
-                <tbody th:each="parkingHistory:${parkingHistoryList}" >
-                <tr class="order-incomplete" >
-                  <td th:text="${bookingInformation.bookingId}">1</td>
-                  <td th:text="${bookingInformation.spaceId}">15</td>
-                  <td th:text="${bookingInformation.carId}">苏A61111</td>
-                  <td th:text="${bookingInformation.bookingTime}">2023-06-08 22:33:36</td>
-                  <td th:text="${bookingInformation.arrivalTime}"></td>
-                  <td th:text="${bookingInformation.bookingFee}"></td>
-                  <td th:text="${bookingInformation.bookingState}">未完成</td>
+                <tbody th:if="${not #lists.isEmpty(parkingHistoryList)}" th:each="parkingHistory:${parkingHistoryList}">
+                <tr class="order-incomplete" th:if="${bookingInformation != null}">
+                  <td th:text="${bookingInformation.bookingId ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.spaceId ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.carId ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.bookingTime ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.arrivalTime ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.bookingFee ?: 'null'}">null</td>
+                  <td th:text="${bookingInformation.bookingState ?: 'null'}">未进行</td>
                 </tr>
                 <tr class="order-complete">
-                  <td th:text="${parkingHistory.bookingId}">2</td>
-                  <td th:text="${parkingHistory.spaceId}">11</td>
-                  <td th:text="${parkingHistory.carId}">苏A21111</td>
-                  <td th:text="${parkingHistory.bookingTime}">2023-06-05 22:33:36</td>
-                  <td th:text="${parkingHistory.departureTime}">2023-06-05 23:33:36</td>
-                  <td th:text="${parkingHistory.bookingFee}">12.3</td>
+                  <td th:text="${parkingHistory.bookingId  ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.spaceId ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.carId ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.bookingTime ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.departureTime ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.bookingFee ?: 'null'}">null</td>
                   <td>已完成</td>
                 </tr>
                 </tbody>
@@ -281,9 +286,9 @@
         <form  th:action="@{/myOder}" method="post">
 
           <div class="form-group">
-            <label for="exampleInputBookingId"></label>
-            <input type="text" class="form-control" name = "BookingId" id="exampleInputBookingId" aria-describedby="BookingHelp" placeholder="请输入订单号">
-            <small id="carIdHelp" class="form-text text-muted">未进行的订单才能取消！</small>
+            <label for="BookingId"></label>
+            <input type="text" class="form-control" name = "BookingId" id="BookingId" aria-describedby="BookingHelp" placeholder="请输入订单号">
+            <small id="carIdHelp" class="form-text text-muted">注意！未进行的订单才能取消！</small>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
             <button type="submit"class="btn btn-primary">提交</button>
@@ -295,7 +300,6 @@
     </div>
   </div>
 </div>
-
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
 <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

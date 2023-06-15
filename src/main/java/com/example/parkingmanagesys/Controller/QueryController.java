@@ -1,7 +1,9 @@
 package com.example.parkingmanagesys.Controller;
 
 import com.example.parkingmanagesys.Pojo.BookingInformation;
+import com.example.parkingmanagesys.Pojo.ParkingHistory;
 import com.example.parkingmanagesys.Pojo.ParkingSpace;
+import com.example.parkingmanagesys.Pojo.User;
 import com.example.parkingmanagesys.Service.ParkingService;
 import com.example.parkingmanagesys.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -39,5 +41,45 @@ public class QueryController {
         }
         else userService.updateBookingInformationByCarId(bookingInformation);
         return "user-ViewParkingSpace";
+    }
+    @RequestMapping("/toMyOrder")
+    public String toMyOder(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        BookingInformation bookingInformation = userService.selectBookingInformationByCarId(user.getCarId());
+        List<ParkingHistory>parkingHistoryList = userService.selectAllParkingHistoryByCarId(user.getCarId());
+        model.addAttribute("bookingInformation",bookingInformation);
+        model.addAttribute("parkingHistoryList",parkingHistoryList);
+        model.addAttribute("user",user);
+        return  "Query_order";
+    }
+    @RequestMapping("/myOder")
+    public String myOrder(HttpSession session,HttpServletRequest servletRequest ,Model model){
+        User user = (User) session.getAttribute("user");
+        BookingInformation bookingInformation = null;
+        List<ParkingHistory> parkingHistoryList = userService.selectAllParkingHistoryByCarId(user.getCarId());
+        Integer bookingId = null;
+        if(servletRequest.getParameter("BookingId")!=null){
+            bookingId = Integer.valueOf(servletRequest.getParameter("BookingId"));
+            BookingInformation temp = userService.selectBookingInfoByBookingId(bookingId);
+            if(temp!=null&&temp.getBookingState().equals("未进行")){
+                userService.deleteBookingInformationByBookingId(bookingId);
+                model.addAttribute("msg","删除成功");
+            }
+            else {
+                model.addAttribute("msg","删除失败，请重新输入订单号");
+            }
+        }
+        else {
+            model.addAttribute("msg","删除失败，请重新输入订单号");
+        }
+        bookingInformation = userService.selectBookingInformationByCarId(user.getCarId());
+        if(bookingInformation!=null){
+            model.addAttribute("bookingInformation",bookingInformation);
+        }
+        if(parkingHistoryList!=null){
+            model.addAttribute("parkingHistoryList",parkingHistoryList);
+        }
+        model.addAttribute("user",user);
+        return "Query_order";
     }
 }

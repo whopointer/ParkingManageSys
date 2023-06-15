@@ -33,6 +33,12 @@
             text-decoration: underline;
         }
     </style>
+    <script th:inline="javascript">
+        var msg = [[${msg}]];
+        if(msg!=null)
+            alert(msg);
+        // 显示警告框
+    </script>
 </head>
 
 <body id="page-top">
@@ -87,7 +93,7 @@
                 <span>个人中心</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/toMyOrder}" href="Query_order.html"><a class="nav-link" th:href="@{/}" href="Query_order.html">
+            <a class="nav-link" th:href="@{/toMyOrder}" href="Query_order.html">
                 <i class="fas fa-shopping-cart"></i>
                 <span>我的订单</span></a>
         </li>

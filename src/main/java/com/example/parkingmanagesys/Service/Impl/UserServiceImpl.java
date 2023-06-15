@@ -55,8 +55,16 @@ private ParkingHistoryMapper parkingHistoryMapper;
         return bookingInformationMapper.selectBookingInformationByCarId(carId);
     }
     @Override
+    public BookingInformation selectBookingInfoByBookingId(Integer bookingId){
+        return bookingInformationMapper.selectBookingInformationByBookingId(bookingId);
+    }
+    @Override
     public List<ParkingHistory> selectAllParkingHistoryByCarId(String carId){
         return parkingHistoryMapper.selectParkingHistoryByCarId(carId);
+    }
+    @Override
+    public  boolean deleteBookingInformationByBookingId(Integer bookingId){
+        return bookingInformationMapper.deleteByBookingId(bookingId);
     }
 }
 
