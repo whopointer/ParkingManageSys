@@ -17,8 +17,6 @@ public class UserServiceImpl implements UserService {
 private UsersMapper usersMapper;
 @Autowired
 private BookingInformationMapper bookingInformationMapper;
-@Autowired
-private ParkingSpaceMapper parkingSpaceMapper;
 
     @Override
     public boolean updateByCarId(User user) {

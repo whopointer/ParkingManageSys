@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
   <meta charset="utf-8">
@@ -18,7 +18,7 @@
 
   <!-- 自定义模板字体 -->
   <!--引入名为all.min的CSS文件-->
-  <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../static/vendor/fontawesome-free/css/all.min.css"  rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
@@ -221,7 +221,7 @@
         <!-- 违规数据表格 -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">违规信息</h6>
+            <h6 class="m-0 font-weight-bold text-primary">车位信息</h6>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -231,36 +231,21 @@
                   <th>车位号</th>
                   <th>车位类型</th>
                   <th>车位状态</th>
+                  <th>到达时间</th>
+                  <th>所停车辆</th>
+                  <th>预约时间</th>
+                  <th>预约车辆</th>
                 </tr>
                 </thead>
-                <tfoot>
-                <tr>
-                  <th>车位号</th>
-                  <th>车位类型</th>
-                  <th>车位状态</th>
-                </tr>
-                </tfoot>
-                <!--数据库查询内容，后期编写-->
                 <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>专用车位</td>
-                  <td>损坏</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>公用车位</td>
-                  <td>预定</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>公用车位</td>
-                  <td>忙碌</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>专用车位</td>
-                  <td>空闲</td>
+                <tr  th:each="parkingSpace:${parkingSpaceList}">
+                  <th th:text="${parkingSpace.spaceId}">车位号</th>
+                  <th th:text="${parkingSpace.spaceType}">车位类型</th>
+                  <th th:text="${parkingSpace.spaceState}">车位状态</th>
+                  <th th:text="${parkingSpace.realArrivalTime}">到达时间</th>
+                  <th th:text="${parkingSpace.parkingCarId}">所停车辆</th>
+                  <th th:text="${parkingSpace.realBookingTime}">预约时间</th>
+                  <th th:text="${parkingSpace.bookingCarId}">预约车辆</th>
                 </tr>
                 </tbody>
               </table>

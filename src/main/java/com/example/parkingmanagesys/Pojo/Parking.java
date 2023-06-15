@@ -5,6 +5,16 @@ import java.util.Date;
 public class Parking {
     private String carId;
     private Integer spaceId;
+    private Float parkingFee;
+
+    public Float getParkingFee() {
+        return parkingFee;
+    }
+
+    public void setParkingFee(Float parkingFee) {
+        this.parkingFee = parkingFee;
+    }
+
     private Date arrivalTime;
 
     public Date getArrivalTime() {

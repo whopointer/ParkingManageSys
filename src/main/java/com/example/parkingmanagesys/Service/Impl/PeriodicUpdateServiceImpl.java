@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class PeriodicUpdateServiceImpl implements PeriodicUpdateService {
     @Autowired
-    private BookingMapper bookingMapper;
     private BookingInformationMapper bookingInformationMapper;
 
     @Scheduled(cron = "0/20 * * * * *")
@@ -23,8 +22,6 @@ public class PeriodicUpdateServiceImpl implements PeriodicUpdateService {
             long diff=new Date().getTime()-bookingInformationList.get(i).getBookingTime().getTime();
             long hour=diff%(1000*24*60*60)/(1000*60*60);
             if(hour>=2){
-                String carId=bookingMapper.selectByBookingId(bookingInformationList.get(i).getBookingId()).getCarId();
-                bookingMapper.deleteByCarId(carId);
                 bookingInformationMapper.deleteByBookingId(bookingInformationList.get(i).getBookingId());
             }
         }

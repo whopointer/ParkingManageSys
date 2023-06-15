@@ -5,21 +5,21 @@
 <mapper namespace="com.example.parkingmanagesys.DAO.ParkingMapper">
     <!--根据carId查-->
     <select id="selectByCarId" resultType="Parking" parameterType="java.lang.String">
-        SELECT Car_Id,Space_Id,Arrival_Time
+        SELECT *
         FROM parking
         WHERE Car_id=#{carId}
     </select>
 
     <!--    根据spaceId查-->
     <select id="selectBySpaceId" resultType="Parking" parameterType="java.lang.Integer">
-        SELECT Car_Id,Space_Id,Arrvial_Time
+        SELECT *
         FROM parking
         WHERE Space_Id=#{spaceId}
     </select>
 
     <!--添加停车信息-->
     <insert id="insertParking" parameterType="Parking">
-        INSERT INTO parking(Car_Id,Space_Id,Arrvial_Time)
+        INSERT INTO parking(Car_Id,Space_Id,Arrival_Time)
         VALUES (#{carId},#{spaceId},#{arrivalTime})
     </insert>
 

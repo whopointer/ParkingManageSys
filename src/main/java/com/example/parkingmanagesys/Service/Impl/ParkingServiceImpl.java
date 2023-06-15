@@ -40,16 +40,19 @@ public class ParkingServiceImpl implements ParkingService {
         for(int i=0;i<parkingSpaceList.size();i++){
             parkingSpace=parkingSpaceList.get(i);
             //改状态
-            if(parkingSpace.getSpaceType()=="Permanent")parkingSpace.setSpaceState("永久");
-            else parkingSpace.setSpaceState("临时");
+            if(parkingSpace.getSpaceType().compareTo("Permanent")==0) {
+                parkingSpace.setSpaceType("永久");
+            }
+            else parkingSpace.setSpaceType("临时");
             //已有停车的情况
+            parkingSpace.setSpaceState("空闲");
             parking=parkingMapper.selectBySpaceId(parkingSpace.getSpaceId());
             if(parking!=null){
                 parkingSpace.setRealArrivalTime(ft.format(parking.getArrivalTime()));
                 parkingSpace.setParkingCarId(parking.getCarId());
                 parkingSpace.setSpaceState("有车");
                 bookingInformation=bookingInformationMapper.selectBookingInformationBySpaceId(parkingSpace.getSpaceId());
-                if(bookingInformation!=null){
+                if(bookingInformation!=null&&bookingInformation.getArrivalTime()==null){
                     parkingSpace.setBookingCarId(bookingInformation.getCarId());
                     parkingSpace.setRealBookingTime((ft.format(bookingInformation.getBookingTime())));
                 }
@@ -57,7 +60,7 @@ public class ParkingServiceImpl implements ParkingService {
             }
             //有预定的情况
             bookingInformation=bookingInformationMapper.selectBookingInformationBySpaceId(parkingSpace.getSpaceId());
-            if(bookingInformation!=null){
+            if(bookingInformation!=null&&bookingInformation.getArrivalTime()==null){
                 parkingSpace.setSpaceState("预定");
                 parkingSpace.setBookingCarId(bookingInformation.getCarId());
                 parkingSpace.setRealBookingTime((ft.format(bookingInformation.getBookingTime())));
@@ -82,7 +85,7 @@ public class ParkingServiceImpl implements ParkingService {
 
         //预定车辆
         BookingInformation bookingInformation=bookingInformationMapper.selectBookingInformationByCarId(carId);
-        if(bookingInformation!=null) {
+        if(bookingInformation!=null&&bookingInformation.getArrivalTime()==null) {
             //插入一条新的停车信息
             parking.setCarId(carId);
             parking.setSpaceId(parkingSpace.getSpaceId());
@@ -161,7 +164,7 @@ public class ParkingServiceImpl implements ParkingService {
         fee=(float)hour*6;
         //删除停车信息
         parkingMapper.deleteByCarId(carId);
-        //预定车辆
+        //预定车辆、注意不只一条后续有时间要改
         BookingInformation bookingInformation=bookingInformationMapper.selectBookingInformationByCarId(carId);
         if(bookingInformation!=null) {
             fee+=bookingInformation.getBookingFee();

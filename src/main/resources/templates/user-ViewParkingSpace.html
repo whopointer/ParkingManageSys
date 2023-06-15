@@ -172,13 +172,6 @@
                   <th>车位状态</th>
                 </tr>
                 </thead>
-                <tfoot>
-                <tr>
-                  <th>车位号</th>
-                  <th>车位类型</th>
-                  <th>车位状态</th>
-                </tr>
-                </tfoot>
                 <!--数据库查询内容，后期编写-->
                 <tbody th:each="parkingSpace:${parkingSpaceList}">
                 <tr>
@@ -267,7 +260,7 @@
             <small id="carIdHelp" class="form-text text-muted">请仔细检查每一项数据！</small>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" th:href="@{/bookSpace}" class="btn btn-primary">提交</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-primary">重置</button>
           </div>
@@ -276,7 +269,7 @@
     </div>
   </div>
 </div>
-
+<script th:src="@{https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
 <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
