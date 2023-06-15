@@ -55,7 +55,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-car"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">停车管理系统</div>
+            <div class="sidebar-brand-text mx-3">停车自助系统</div>
         </a>
 
         <!-- 分割线 -->
@@ -76,7 +76,7 @@
             查询板块
         </div>
         <li class="nav-item">
-            <a class="nav-link" href="../static/buttons.html">
+            <a class="nav-link" th:href="@{/userViewParking}" href="user-ViewParkingSpace.html">
                 <i class="fas fa-info-circle"></i>
                 <span>车位信息</span></a>
         </li>
@@ -85,6 +85,11 @@
             <a class="nav-link" th:href="@{/profile}" href="profile.html">
                 <i class="fas fa-user"></i>
                 <span>个人中心</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/toMyOrder}" href="Query_order.html">
+                <i class="fas fa-shopping-cart"></i>
+                <span>我的订单</span></a>
         </li>
         <!-- 分割线 -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -181,6 +186,11 @@
                                         <div class="col-md-6"><label class="labels">车辆颜色:</label><span class="form-control-plaintext" name="color" th:text="${user.color}">黄色</span></div>
                                     </div>
                                     <div class="mt-5 text-center"><input type="submit"class="btn btn-primary profile-button" value="修改个人资料"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 py-5 text-center">
+
                                 </div>
                             </div>
                         </div>

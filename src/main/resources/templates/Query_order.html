@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <meta charset="utf-8">
+  <!--用于解决旧版Internet Explorer浏览器的兼容性问题，
+  可以强制浏览器使用最新的渲染引擎来呈现页面，从而避免出现不必要的兼容性问题。-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--将页面宽度设置为与设备宽度相同，初始缩放比例为1，不允许用户通过缩放来改变页面大小。
+  确保页面在移动设备上正常显示，并且不会出现需要水平滚动才能完全查看内容的情况。-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>我的订单</title>
+
+  <!-- 自定义模板字体 -->
+  <!--引入名为all.min的CSS文件-->
+  <link href="../static/vendor/fontawesome-free/css/all.min.css" th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="../static/css/sb-admin-2.min.css" th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <!-- 自定义界面 -->
+  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" th:href="@{vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+  <style type="text/css">
+    .btn-container{
+      text-align: center;
+    }
+    .btn btn-primary profile-button{
+      display: inline-block;
+    }
+    tr.order-incomplete {
+      background-color: #f8d7da; /* Apply your desired style for incomplete orders */
+    }
+
+    tr.order-complete {
+      background-color: #d4edda; /* Apply your desired style for completed orders */
+    }
+  </style>
+
+</head>
+
+<body id="page-top">
+
+<!--页面包装器-->
+<div id="wrapper">
+
+  <!-- 侧边栏 -->
+  <!--
+  navbar-nav：表示该列表是一个导航栏，其子项将被排列为水平菜单。
+  bg-gradient-primary：设置导航栏的背景颜色为渐变的蓝色（primary）。
+  sidebar sidebar-dark accordion：将该列表视为一个侧边栏，并使用dark主题来显示，
+  同时使用accordion效果来控制收缩和展开状态。
+  -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!--点击左上图标跳转首页-->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/userIndex}" href="user-index.html">
+      <!--车场图标-->
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-car"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">停车自助系统</div>
+    </a>
+
+    <!-- 分割线 -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- 第一个导航栏 -->
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/userIndex}" href="user-index.html">
+        <i class="fas fa-dove"></i>
+        <span>车场资讯</span></a>
+    </li>
+
+    <!-- 分割线 -->
+    <hr class="sidebar-divider">
+
+    <!-- 添加副标题 -->
+    <div class="sidebar-heading">
+      查询板块
+    </div>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/userViewParking}" href="user-ViewParkingSpace.html">
+        <i class="fas fa-info-circle"></i>
+        <span>车位信息</span></a>
+    </li>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/profile}" href="profile.html">
+        <i class="fas fa-user"></i>
+        <span>个人中心</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/toMyOrder}" href="Query_order.html">
+        <i class="fas fa-shopping-cart"></i>
+        <span>我的订单</span></a>
+    </li>
+    <!-- 分割线 -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <!--切换侧边栏的可见性(自适应屏幕)-->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!--侧边栏结束标志-->
+
+  <!-- 内容包装器 -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- 主内容 -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <!--包含了网站或应用程序的标志、菜单导航、用户登录信息和其他可定制的内容-->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <ul class="navbar-nav ml-auto">
+
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <!--位于导航栏中的搜索下拉菜单,该下拉菜单只在屏幕尺寸较小（例如移动设备）时可见-->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${user.userName}">Admin</span>
+              <img class="img-profile rounded-circle"
+                   th:src="@{img/undraw_mypic.jpg}" src="../static/img/undraw_mypic.jpg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="userDropdown">
+              <a class="dropdown-item" th:href="@{/}" href="profile.html">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                个人信息
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" th:href="@{/}" href="login.html" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                退出登录
+              </a>
+            </div>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!-- 顶部导航栏结束标志 -->
+
+      <!-- 页面内容开始标志 -->
+      <div class="container-fluid">
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">订单信息</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>订单号</th>
+                  <th>车位号</th>
+                  <th>车牌号</th>
+                  <th>预定时间</th>
+                  <th>到达时间</th>
+                  <th>订单费用</th>
+                  <th>订单状态</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>订单号</th>
+                  <th>车位号</th>
+                  <th>车牌号</th>
+                  <th>预定时间</th>
+                  <th>到达时间</th>
+                  <th>订单费用</th>
+                  <th>订单状态</th>
+                </tr>
+                </tfoot>
+                <tbody th:each="parkingHistory:${parkingHistoryList}" >
+                <tr class="order-incomplete" >
+                  <td th:text="${bookingInformation.bookingId}">1</td>
+                  <td th:text="${bookingInformation.spaceId}">15</td>
+                  <td th:text="${bookingInformation.carId}">苏A61111</td>
+                  <td th:text="${bookingInformation.bookingTime}">2023-06-08 22:33:36</td>
+                  <td th:text="${bookingInformation.arrivalTime}"></td>
+                  <td th:text="${bookingInformation.bookingFee}"></td>
+                  <td th:text="${bookingInformation.bookingState}">未完成</td>
+                </tr>
+                <tr class="order-complete">
+                  <td th:text="${parkingHistory.bookingId}">2</td>
+                  <td th:text="${parkingHistory.spaceId}">11</td>
+                  <td th:text="${parkingHistory.carId}">苏A21111</td>
+                  <td th:text="${parkingHistory.bookingTime}">2023-06-05 22:33:36</td>
+                  <td th:text="${parkingHistory.departureTime}">2023-06-05 23:33:36</td>
+                  <td th:text="${parkingHistory.bookingFee}">12.3</td>
+                  <td>已完成</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="btn-container">
+          <button class="btn btn-primary profile-button"  data-toggle="modal" data-target="#exampleModal">取消未进行订单</button>
+        </div>
+  </div>
+  <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; 南京的爷就是爷</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" th:href="@{/}" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalTable">取消订单</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- 表单 -->
+        <form  th:action="@{/myOder}" method="post">
+
+          <div class="form-group">
+            <label for="exampleInputBookingId"></label>
+            <input type="text" class="form-control" name = "BookingId" id="exampleInputBookingId" aria-describedby="BookingHelp" placeholder="请输入订单号">
+            <small id="carIdHelp" class="form-text text-muted">未进行的订单才能取消！</small>
+          </div>
+          <div style="text-align:center; width:100%;height:100%;margin:0px;">
+            <button type="submit"class="btn btn-primary">提交</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
+<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}" src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{js/sb-admin-2.min.js}" src="../static/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{vendor/datatables/jquery.dataTables.min.js}" src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script th:src="@{vendor/datatables/dataTables.bootstrap4.min.js}" src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{js/demo/datatables-demo.js}" src="../static/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>

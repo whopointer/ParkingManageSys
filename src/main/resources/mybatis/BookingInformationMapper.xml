@@ -36,15 +36,16 @@
     </delete>
 
     <insert id="insertBookingInformation" parameterType="BookingInformation">
-        INSERT INTO booking_information(Booking_Id,Space_Id,Car_Id,Booking_Time)
-        VALUES (#{bookingId},#{spaceId},#{carId},#{bookingTime})
+        INSERT INTO booking_information(Booking_Id,Space_Id,Car_Id,Booking_Time,Booking_State)
+        VALUES (#{bookingId},#{spaceId},#{carId},#{bookingTime},#{bookingState})
     </insert>
 
-<!--    只改到达时间和费用-->
+<!--    只改到达时间和费用和状态-->
     <update id="updateByBookingId" parameterType="BookingInformation">
         UPDATE Booking_Information
         SET Arrival_Time=#{arrivalTime},
-            Booking_Fee=#{bookingFee}
+            Booking_Fee=#{bookingFee},
+            Booking_State=#{bookingState},
         WHERE Booking_Id=#{bookingId}
     </update>
 

@@ -11,6 +11,7 @@ public class BookingInformation {
     private float bookingFee;
     private String realBookingTime;
     private String realArrivalTime;
+    private String bookingState;
 
     public Integer getBookingId() {
         return bookingId;
@@ -72,4 +73,6 @@ public class BookingInformation {
     public void setRealArrivalTime(String realArrivalTime) {
         this.realArrivalTime = realArrivalTime;
     }
+    public void setBookingState(String bookingState){this.bookingState = bookingState;}
+    public String getBookingState(){return bookingState;}
 }

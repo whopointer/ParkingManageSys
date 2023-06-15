@@ -4,45 +4,45 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.parkingmanagesys.DAO.ParkingHistoryMapper">
     <!--查询所有预定信息-->
-    <select id="selectAll" resultType="BookingInformation">
+    <select id="selectAll" resultType="ParkingHistory">
         SELECT *
-        FROM booking_information
+        FROM parking_history
     </select>
 
     <!--    根据id查询预定信息-->
-    <select id="selectBookingInformationByBookingId" resultType="BookingInformation" parameterType="java.lang.Integer">
+    <select id="selectParkingHistoryByBookingId" resultType="ParkingHistory" parameterType="java.lang.Integer">
         SELECT *
-        FROM booking_information
+        FROM parking_history
         WHERE Booking_Id=#{bookingId}
     </select>
     <!--根据Space_Id查询预定信息-->
-    <select id="selectBookingInformationBySpaceId" resultType="BookingInformation" parameterType="java.lang.Integer">
+    <select id="selectParkingHistoryBySpaceId" resultType="ParkingHistory" parameterType="java.lang.Integer">
         SELECT *
-        FROM booking_information
+        FROM parking_history
         WHERE Space_Id=#{spaceId}
     </select>
     <!--    根据车辆id查询-->
-    <select id="selectBookingInformationByCarId" resultType="BookingInformation" parameterType="java.lang.String">
+    <select id="selectParkingHistoryByCarId" resultType="ParkingHistory" parameterType="java.lang.String">
         SELECT *
-        FROM booking_information
+        FROM parking_history
         WHERE Car_Id=#{carId}
     </select>
 
     <!--根据id删除-->
     <delete id="deleteByBookingId" parameterType="java.lang.Integer">
         DELETE
-        FROM booking_information
+        FROM parking_history
         WHERE Booking_Id=#{bookingId}
     </delete>
 
-    <insert id="insertBookingInformation" parameterType="BookingInformation">
-        INSERT INTO booking_information(Booking_Id,Space_Id,Car_Id,Booking_Time)
+    <insert id="insertParkingHistory" parameterType="ParkingHistory">
+        INSERT INTO parking_history(Booking_Id,Space_Id,Car_Id,Booking_Time)
         VALUES (#{bookingId},#{spaceId},#{carId},#{bookingTime})
     </insert>
 
     <!--    只改到达时间和费用-->
-    <update id="updateByBookingId" parameterType="BookingInformation">
-        UPDATE Booking_Information
+    <update id="updateByBookingId" parameterType="ParkingHistory">
+        UPDATE parking_history
         SET Arrival_Time=#{arrivalTime},
             Booking_Fee=#{bookingFee}
         WHERE Booking_Id=#{bookingId}

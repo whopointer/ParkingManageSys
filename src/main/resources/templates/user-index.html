@@ -31,7 +31,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/userIndex}" href="user-index">
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-car"></i>
       </div>
@@ -43,7 +43,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-      <a class="nav-link" href="../templates/user-index.html">
+      <a class="nav-link" th:href="@{/userIndex}" href="user-index.html">
         <i class="fas fa-dove"></i>
         <span>车场资讯</span></a>
     </li>
@@ -56,17 +56,21 @@
       查询板块
     </div>
     <li class="nav-item">
-      <a class="nav-link" href="../static/tables.html">
+      <a class="nav-link" th:href="@{/userViewParking}" href="user-ViewParkingSpace.html">
         <i class="fas fa-info-circle"></i>
         <span>车位信息</span></a>
     </li>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="profile.html">
+      <a class="nav-link" th:href="@{/profile}" href="profile.html">
         <i class="fas fa-user"></i>
         <span>个人中心</span></a>
     </li>
-
+    <li class="nav-item">
+      <a class="nav-link" th:href="@{/toMyOrder}" href="Query_order.html">
+        <i class="fas fa-shopping-cart"></i>
+        <span>我的订单</span></a>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -104,29 +108,21 @@
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${user.userName}" >Admin</span>
               <img class="img-profile rounded-circle"
-                   src="../static/img/undraw_profile.svg">
+                   th:src="@{img/undraw_mypic.jpg}" src="../static/img/undraw_mypic.jpg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" th:href="@{/}" href="profile.html">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
+                个人信息
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+              <a class="dropdown-item" th:href="@{/}" href="login.html" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Logout
+                退出登录
               </a>
             </div>
           </li>
@@ -142,8 +138,6 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                  class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 
         <!-- Content Row -->
@@ -275,12 +269,12 @@
               <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                <div class="dropdown no-arrow">
+                <!--<div class="dropdown no-arrow">
                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                   </a>
-                  <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                  <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;fade-in"
                        aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Dropdown Header:</div>
                     <a class="dropdown-item" href="#">Action</a>
@@ -288,7 +282,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
                   </div>
-                </div>
+                </div>-->
               </div>
               <!-- Card Body -->
               <div class="card-body">
@@ -505,28 +499,28 @@
       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a class="btn btn-primary" href="login.html">Logout</a>
+        <a class="btn btn-primary" th:href="@{/}" href="login.html">Logout</a>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="../static/vendor/jquery/jquery.min.js"></script>
-<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>
+<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}" src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}" src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="../static/js/sb-admin-2.min.js"></script>
+<script th:src="@{js/sb-admin-2.min.js}" src="../static/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
-<script src="../static/vendor/chart.js/Chart.min.js"></script>
+<script th:src="@{vendor/datatables/jquery.dataTables.min.js}" src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script th:src="@{vendor/datatables/dataTables.bootstrap4.min.js}" src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
 <!-- Page level custom scripts -->
-<script src="../static/js/demo/chart-area-demo.js"></script>
-<script src="../static/js/demo/chart-pie-demo.js"></script>
+<script th:src="@{js/demo/datatables-demo.js}" src="../static/js/demo/datatables-demo.js"></script>
 
 </body>
 

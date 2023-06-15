@@ -1,9 +1,11 @@
 package com.example.parkingmanagesys.Service.Impl;
 
 import com.example.parkingmanagesys.DAO.BookingInformationMapper;
+import com.example.parkingmanagesys.DAO.ParkingHistoryMapper;
 import com.example.parkingmanagesys.DAO.ParkingSpaceMapper;
 import com.example.parkingmanagesys.DAO.UsersMapper;
 import com.example.parkingmanagesys.Pojo.BookingInformation;
+import com.example.parkingmanagesys.Pojo.ParkingHistory;
 import com.example.parkingmanagesys.Pojo.User;
 import com.example.parkingmanagesys.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class UserServiceImpl implements UserService {
 private UsersMapper usersMapper;
 @Autowired
 private BookingInformationMapper bookingInformationMapper;
+@Autowired
+private ParkingHistoryMapper parkingHistoryMapper;
 
     @Override
     public boolean updateByCarId(User user) {
@@ -44,6 +48,15 @@ private BookingInformationMapper bookingInformationMapper;
     @Override
     public List<User> selectAll(){
         return usersMapper.selectAll();
+    }
+
+    @Override
+    public BookingInformation selectBookingInfoByCarId(String carId){
+        return bookingInformationMapper.selectBookingInformationByCarId(carId);
+    }
+    @Override
+    public List<ParkingHistory> selectAllParkingHistoryByCarId(String carId){
+        return parkingHistoryMapper.selectParkingHistoryByCarId(carId);
     }
 }
 
