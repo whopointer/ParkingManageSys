@@ -35,6 +35,12 @@
             return true;
         }
     </script>
+    <script th:inline="javascript">
+        var msg = [[${msg}]];
+        if(msg!=null)
+            alert(msg);
+        // 显示警告框
+    </script>
 </head>
 
 <body class="bg-gradient-primary">

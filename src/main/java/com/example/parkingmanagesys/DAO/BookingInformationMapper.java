@@ -13,7 +13,7 @@ public interface BookingInformationMapper {
     //根据车辆id查询
     BookingInformation selectBookingInformationByCarId(String carId);
     //根据id查询预信息
-    BookingInformation selectByBookingId(Integer bookingId);
+    BookingInformation selectBookingInformationByBookingId(Integer bookingId);
     //根据id删除
     Boolean deleteByBookingId(Integer bookingId);
     //插入预定信息

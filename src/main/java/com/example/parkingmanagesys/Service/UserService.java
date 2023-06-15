@@ -30,10 +30,12 @@ public interface UserService {
     //查询全部信息
     public List<User> selectAll();
     public BookingInformation selectBookingInfoByCarId(String carId);
+    public BookingInformation selectBookingInfoByBookingId(Integer bookingId);
     public List<ParkingHistory> selectAllParkingHistoryByCarId(String carId);
     //预定
     public boolean updateBookingInformationByCarId(BookingInformation bookingInformation);
 
+    public  boolean deleteBookingInformationByBookingId(Integer bookingId);
 
 }
 

@@ -33,6 +33,12 @@
             text-decoration: underline;
         }
     </style>
+    <script th:inline="javascript">
+        var msg = [[${msg}]];
+        if(msg!=null)
+            alert(msg);
+        // 显示警告框
+    </script>
 </head>
 
 <body id="page-top">
