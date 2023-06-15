@@ -18,11 +18,20 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean insertUser(User user) {
+    public boolean insertUser(User user){
         List<User> userList=usersMapper.selectAll();
         for(int i=0;i<userList.size();i++){
-            if(user.getCarId()==userList.get(i).getCarId())
+            if(user.getCarId() == userList.get(i).getCarId()){
+                System.out.println("存在重复车牌号！");
                 return false;
+            }
+            if(user.getUserPhone() == userList.get(i).getUserPhone()){
+                System.out.println("存在重复手机号！");
+                return false;
+            }
+            if(user.getCardNum() == userList.get(i).getCardNum())
+                System.out.println("存在重复停车卡号！");
+            return false;
         }
         return usersMapper.insertUser(user);
     }

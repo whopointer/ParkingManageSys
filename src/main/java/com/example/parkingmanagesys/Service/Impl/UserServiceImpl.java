@@ -40,4 +40,10 @@ private BookingInformationMapper bookingInformationMapper;
         bookingInformation.setBookingId(bookingInformationList.size()+1);
         return bookingInformationMapper.insertInformation(bookingInformation);
     }
+
+    @Override
+    public List<User> selectAll(){
+        return usersMapper.selectAll();
+    }
 }
+

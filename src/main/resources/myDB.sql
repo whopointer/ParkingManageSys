@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS Booking_information(
    Booking_Time DATETIME NOT NULL,
    Arrival_Time DATETIME,
    Booking_Fee FLOAT DEFAULT 0.0,
+   Booking_State VARCHAR(50) DEFAULT 'Unfinished',
    FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id),
    FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
    PRIMARY KEY (Booking_Id)

@@ -130,7 +130,7 @@
     </li>
 
     <!-- 违规管理 -->
-    <li class="nav-item active">
+    <li class="nav-item">
       <a class="nav-link" href="Query_Violation.html">
         <i class="fas fa-exclamation-triangle"></i>
         <span>违规信息查看</span></a>
@@ -138,6 +138,13 @@
 
     <!-- 分割线 -->
     <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- 违规管理 -->
+    <li class="nav-item">
+      <a class="nav-link" href="Vichcle_InOut.html">
+        <i class="fas fa-warehouse"></i>
+        <span>车辆进出</span></a>
+    </li>
 
     <!-- Sidebar Toggler (Sidebar) -->
     <!--切换侧边栏的可见性(自适应屏幕)-->
@@ -246,31 +253,14 @@
                   <th>车辆颜色</th>
                 </tr>
                 </tfoot>
-                <!--数据库查询内容，后期编写-->
                 <tbody>
-                <tr>
-                  <td>苏大强</td>
-                  <td>苏A.66666</td>
-                  <td>13000000001</td>
-                  <td>永久卡</td>
-                  <td>NJ11111</td>
-                  <td>七色彩虹</td>
-                </tr>
-                <tr>
-                  <td>🐖大肠</td>
-                  <td>苏A.88888</td>
-                  <td>15000000001</td>
-                  <td>永久卡</td>
-                  <td>NJ11112</td>
-                  <td>阳光彩虹小白马</td>
-                </tr>
-                <tr>
-                  <td>李宏伟</td>
-                  <td>苏A.54250</td>
-                  <td>15000000250</td>
-                  <td>永久卡</td>
-                  <td>MC54250</td>
-                  <td>青色(冻鱼限定版)</td>
+                <tr th:each="user : ${users}">
+                  <td th:text="${user.userName}"></td>
+                  <td th:text="${user.carId}"></td>
+                  <td th:text="${user.userPhone}"></td>
+                  <td th:text="${user.cardType}"></td>
+                  <td th:text="${user.cardNum}"></td>
+                  <td th:text="${user.Color}"></td>
                 </tr>
                 </tbody>
               </table>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+  <meta charset="utf-8">
+  <!--用于解决旧版Internet Explorer浏览器的兼容性问 题，
+  可以强制浏览器使用最新的渲染引擎来呈现页面，从而避免出现不必要的兼容性问题。-->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--将页面宽度设置为与设备宽度相同，初始缩放比例为1，不允许用户通过缩放来改变页面大小。
+  确保页面在移动设备上正常显示，并且不会出现需要水平滚动才能完全查看内容的情况。-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>车位信息查询</title>
+
+  <!-- 自定义模板字体 -->
+  <!--引入名为all.min的CSS文件-->
+  <link href="../static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+  <!-- 自定义CSS样式 -->
+  <link href="../static/css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- 自定义界面 -->
+  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+  <!-- 检查车牌号是否符合标准-->
+  <script>
+    $(document).ready(function(){
+      $("input[data-toggle='check']").on("input",function(){
+        var carNum = $(this).val();
+        if (/^[\u4e00-\u9fa5]{1}[A-Z]{1}[A-Z_0-9]{5}$/.test(carNum)) {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+
+        }
+      });
+    });
+  </script>
+  <!--检查车牌号格式结束-->
+
+  <!-- 检查预定时间是否符合标准-->
+  <script>
+    $(document).ready(function(){
+      $('#bookingTime').on("input",function(){
+        var bookingtime = $(this).val();
+        const dateObj = new Date(bookingtime);
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(bookingtime) && !isNaN(dateObj)) {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+        }
+      });
+    });
+  </script>
+  <!--检查预定时间格式结束-->
+
+  <!-- 检查到达时间是否符合标准-->
+  <script>
+    $(document).ready(function(){
+      $('#arrivalTime').on("input",function(){
+        var arrivaltime = $(this).val();
+        const dateObj = new Date(arrivaltime);
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(arrivaltime) && !isNaN(dateObj)) {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+        }
+      });
+    });
+  </script>
+  <!--检查到达时间格式结束-->
+
+  <!-- 检查离开时间是否符合标准-->
+  <script>
+    $(document).ready(function(){
+      $('#departureTime').on("input",function(){
+        var departuretime = $(this).val();
+        const dateObj = new Date(departuretime);
+        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(departuretime) && !isNaN(dateObj)) {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+        }
+      });
+    });
+  </script>
+  <!--检查离开时间格式结束-->
+
+  <!-- 检查用户卡号是否符合标准-->
+  <script>
+    $(document).ready(function(){
+      $("input[data-toggle='cardNum']").on("input",function(){
+        var carNum = $(this).val();
+        if (/^[A-Z]{1}[0-9]{5}$/.test(carNum)) {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+        }
+      });
+    });
+  </script>
+  <!--检查用户卡号格式结束-->
+
+</head>
+
+<body id="page-top">
+
+<!--页面包装器-->
+<div id="wrapper">
+
+  <!-- 侧边栏 -->
+  <!--
+  navbar-nav：表示该列表是一个导航栏，其子项将被排列为水平菜单。
+  bg-gradient-primary：设置导航栏的背景颜色为渐变的蓝色（primary）。
+  sidebar sidebar-dark accordion：将该列表视为一个侧边栏，并使用dark主题来显示，
+  同时使用accordion效果来控制收缩和展开状态。
+  -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!--点击左上图标跳转首页-->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../static/index.html">
+      <!--车场图标-->
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-car"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">停车管理系统</div>
+    </a>
+
+    <!-- 分割线 -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- 第一个导航栏 -->
+    <li class="nav-item">
+      <a class="nav-link" href="../static/index.html">
+        <i class="fas fa-dove"></i>
+        <span>车场资讯</span></a>
+    </li>
+
+    <!-- 分割线 -->
+    <hr class="sidebar-divider">
+
+    <!-- 添加副标题 -->
+    <div class="sidebar-heading">
+      查询板块
+    </div>
+
+    <!-- 车场信息查询 -->
+    <li class="nav-item">
+      <!--操作collapseTwo对象-->
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+         aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-truck"></i>
+        <span>车场信息查询</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">选择需要查询的内容：</h6>
+          <a class="collapse-item" href="../static/View_UsersInformation.html">用户信息</a>
+          <a class="collapse-item" href="#">车位信息</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- 历史停车 -->
+    <li class="nav-item">
+      <a class="nav-link" href="../static/index.html">
+        <i class="fas fa-history"></i>
+        <span>历史停车</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      管理板块
+    </div>
+
+    <!-- 管理车场信息 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+         aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-user-secret"></i>
+        <span>车场信息管理</span>
+      </a>
+      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">请选择需要管理的信息:</h6>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
+            用户信息
+          </a>
+          <a class="collapse-item" href="../static/forgot-password.html">车位信息</a>
+          <a class="collapse-item" href="../static/blank.html">违规信息</a>
+
+        </div>
+      </div>
+    </li>
+
+    <!-- 车场收入 -->
+    <li class="nav-item">
+      <a class="nav-link" href="../static/charts.html">
+        <i class="fas fa-yen-sign"></i>
+        <span>车场收入</span></a>
+    </li>
+
+    <!-- 违规管理 -->
+    <li class="nav-item">
+      <a class="nav-link" href="../static/Query_Violation.html">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>违规信息查看</span></a>
+    </li>
+
+    <!-- 分割线 -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- 管理车场进出 -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#vichclecollapsePages"
+         aria-expanded="true" aria-controls="collapsePages">
+        <i class="fas fa-warehouse"></i>
+        <span>车辆进出</span>
+      </a>
+      <div id="vichclecollapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
+            车辆入场
+          </a>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal1">
+            车辆出场
+          </a>
+
+        </div>
+      </div>
+    </li>
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <!--切换侧边栏的可见性(自适应屏幕)-->
+    <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+  </ul>
+  <!--侧边栏结束标志-->
+
+  <!-- 内容包装器 -->
+  <div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- 主内容 -->
+    <div id="content">
+
+      <!-- Topbar -->
+      <!--包含了网站或应用程序的标志、菜单导航、用户登录信息和其他可定制的内容-->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+        <!-- Sidebar Toggle (Topbar) -->
+        <!--创建一个响应式导航栏，在小屏设备上显示一个可点击的按钮来展开或收起菜单-->
+
+        <!-- Topbar Navbar -->
+        <!--顶部导航栏-->
+        <ul class="navbar-nav ml-auto">
+
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <!--位于导航栏中的搜索下拉菜单,该下拉菜单只在屏幕尺寸较小（例如移动设备）时可见-->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+              <img class="img-profile rounded-circle"
+                   src="../static/img/undraw_mypic.jpg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                 aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                注销
+              </a>
+            </div>
+          </li>
+
+        </ul>
+
+      </nav>
+      <!-- 顶部导航栏结束标志 -->
+
+      <!-- 页面内容开始标志 -->
+      <div class="container-fluid">
+
+
+
+    </div>
+    <!-- End of Main Content -->
+
+  </div>
+  <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">是否注销当前用户?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">点击“注销”将注销当前用户</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">返回</button>
+        <a class="btn btn-primary" href="../static/login.html">注销</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--车辆入场-->
+<!-- 模态框 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModaltabel">输入入场信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- 表单 -->
+        <form action="http://localhost:8080/save">
+          <!--插入车牌号-->
+          <div class="form-group">
+            <label for="exampleInputcarId">车牌号</label>
+            <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
+            <div class="invalid-feedback">
+              输入不正确!示例：苏A12345
+            </div>
+          </div>
+          <!--插入用户卡号-->
+          <div class="form-group">
+            <label for="exampleInputcardNum">用户卡号</label>
+            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
+            <div class="invalid-feedback">
+              输入不正确!示例：A00001
+            </div>
+          </div>
+          <!--插入用户到达时间-->
+          <div class="form-group">
+            <label for="arrivalTime">到达时间</label>
+            <input type="text" class="form-control" name = "arrivalTime" id="arrivalTime" aria-describedby="arrivalTimeHelp" placeholder="请输入用户到达时间">
+            <div class="invalid-feedback">
+              输入不正确!示例：2023-06-15 02:30:51
+            </div>
+          </div>
+          <!--插入预定时间-->
+          <div class="form-group">
+            <label for="bookingTime">预定时间(可空)</label>
+            <input type="text" class="form-control" name = "bookingTime" id="bookingTime" aria-describedby="cardNumHelp" placeholder="请输入用户预定时间">
+            <div class="invalid-feedback">
+              输入不正确!示例：2023-06-15 02:30:51
+            </div>
+          </div>
+          <div style="text-align:center; width:100%;height:100%;margin:0px;">
+            <button type="submit" class="btn btn-primary">提交</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" class="btn btn-primary">重置</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--车辆出场-->
+  <!-- 模态框 -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModaltabel1">输入出场信息</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- 表单 -->
+          <form action="http://localhost:8080/save">
+            <!--插入车牌号-->
+            <div class="form-group">
+              <label for="exampleInputcarId">车牌号</label>
+              <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId1" aria-describedby="carIdHelp" placeholder="请输入车牌号">
+              <div class="invalid-feedback">
+                输入不正确!示例：苏A12345
+              </div>
+            </div>
+            <!--插入用户卡号-->
+            <div class="form-group">
+              <label for="exampleInputcardNum">用户卡号</label>
+              <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum1" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
+              <div class="invalid-feedback">
+                输入不正确!示例：A00001
+              </div>
+            </div>
+            <!--插入用户到达时间-->
+            <div class="form-group">
+              <label for="arrivalTime">离开时间</label>
+              <input type="text" class="form-control" name = "arrivalTime" id="departureTime" aria-describedby="departureTimeHelp" placeholder="请输入用户离开时间">
+              <div class="invalid-feedback">
+                输入不正确!示例：2023-06-15 02:30:51
+              </div>
+            </div>
+            <div style="text-align:center; width:100%;height:100%;margin:0px;">
+              <button type="submit" class="btn btn-primary">提交</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="reset" class="btn btn-primary">重置</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="../static/vendor/jquery/jquery.min.js"></script>
+<script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../static/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../static/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>
