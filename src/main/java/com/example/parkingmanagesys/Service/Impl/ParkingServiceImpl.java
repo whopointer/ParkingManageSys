@@ -91,6 +91,8 @@ public class ParkingServiceImpl implements ParkingService {
             parking.setSpaceId(bookingInformation.getSpaceId());
             parking.setArrivalTime(new Date());
             parkingMapper.insertParking(parking);
+            parkingSpace=parkingSpaceMapper.selectBySpaceId(parking.getSpaceId());
+            parkingSpace.setSpaceState("Busy");
             //修改book_information的到达时间、费用
             bookingInformation.setArrivalTime(new Date());
             //计算差多少小时
@@ -99,6 +101,7 @@ public class ParkingServiceImpl implements ParkingService {
             bookingInformation.setBookingFee((int)hour*6);
             bookingInformation.setBookingState("Finished");
             bookingInformationMapper.updateByBookingId(bookingInformation);
+            parkingSpaceMapper.updateBySpaceId(parkingSpace);
             return bookingInformation.getSpaceId();
         }
 
@@ -138,6 +141,9 @@ public class ParkingServiceImpl implements ParkingService {
         parking.setSpaceId(parkingSpace.getSpaceId());
         parking.setArrivalTime(new Date());
         parkingMapper.insertParking(parking);
+        parkingSpace=parkingSpaceMapper.selectBySpaceId(parking.getSpaceId());
+        parkingSpace.setSpaceState("Busy");
+        parkingSpaceMapper.updateBySpaceId(parkingSpace);
         return parkingSpace.getSpaceId();
     }
 
@@ -148,9 +154,6 @@ public class ParkingServiceImpl implements ParkingService {
         //专用车辆
         Special special=specialMapper.selectByCarId(carId);
         if(special!=null){
-            //修改parking_space中状态
-            parkingSpace.setSpaceState("Spare");
-            parkingSpaceMapper.updateBySpaceId(parkingSpace);
             //删除停车信息
             parkingMapper.deleteByCarId(carId);
             return (float)0;
@@ -159,6 +162,7 @@ public class ParkingServiceImpl implements ParkingService {
         Float fee;
         //普通车辆
         parkingSpace.setSpaceState("Spare");
+        parkingSpaceMapper.updateBySpaceId(parkingSpace);
         //计算差多少小时
         long diff=new Date().getTime()-parking.getArrivalTime().getTime();
         long hour=diff/1000/60/60;

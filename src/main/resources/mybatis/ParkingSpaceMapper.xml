@@ -19,7 +19,7 @@
     <update id="updateBySpaceId" parameterType="ParkingSpace">
         UPDATE parking_space
         SET Space_Type=#{spaceType},
-            Space_State=#{spaceState},
+            Space_State=#{spaceState}
        WHERE Space_id=#{spaceId}
     </update>
 </mapper>
