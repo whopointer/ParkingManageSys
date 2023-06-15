@@ -84,8 +84,7 @@ CREATE TABLE IF NOT EXISTS Parking_History(
    Departure_Time DATETIME NOT NULL,
    PRIMARY KEY (History_id),
    FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id),
-   FOREIGN KEY (Booking_Id) REFERENCES Booking_information(Booking_Id)
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # 创建违规信息表

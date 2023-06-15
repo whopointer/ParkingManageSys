@@ -30,20 +30,51 @@
         WHERE Car_Id=#{carId}
     </delete>
 
-<!--根据车辆id改车主信息-->
+    <!--根据车辆id改车主信息-->
     <update id="updateByCarId" parameterType="User">
         UPDATE users
         SET Color=#{color},
             User_Name=#{userName},
+            Card_Type=#{cardType},
             User_PassWord=#{userPassWord},
             User_Phone=#{userPhone},
-            Card_Type=#{cardType},
-            Card_Num =#{cardNum}
+            Card_Num=#{cardNum}
         WHERE Car_Id=#{carId}
     </update>
+<!--根据车辆id改车主颜色-->
+    <update id="updateCarColor" parameterType="User">
+        UPDATE users
+        SET Color=#{color}
+        WHERE Car_Id=#{carId}
+    </update>
+    <!--根据车辆id改车主姓名-->
+    <update id="updateName" parameterType="User">
+        UPDATE users
+        SET User_Name=#{userName}
+        WHERE Car_Id=#{carId}
+    </update>
+    <!--根据车辆id改车主密码-->
+    <update id="updatePassWord" parameterType="User">
+        UPDATE users
+        SET User_PassWord=#{userPassWord}
+        WHERE Car_Id=#{carId}
+    </update>
+    <!--根据车辆id改车主卡类型-->
+    <update id="updateCardType" parameterType="User">
+        UPDATE users
+        SET Card_Type=#{cardType}
+        WHERE Car_Id=#{carId}
+    </update>
+    <!--根据车辆id改车主停车卡卡号-->
+    <update id="updateCardNum" parameterType="User">
+        UPDATE users
+        SET Card_Num=#{cardNum}
+        WHERE Car_Id=#{carId}
+    </update>
+
 <!--    添加车主信息-->
     <insert id="insertUser" parameterType="User">
-        INSERT INTO users(Car_Id,Color,User_Name,User_PassWord,User_Phone,Card_Type,CardNum)
-        VALUES (#{carId},#{Color},#{userName},#{userPassWord},#{userPhone},#{cardType})
+        INSERT INTO users(Car_Id,Color,User_Name,User_PassWord,User_Phone,Card_Type,Card_Num)
+        VALUES (#{carId},#{Color},#{userName},#{userPassWord},#{userPhone},#{cardType},#{CardNum})
     </insert>
 </mapper>

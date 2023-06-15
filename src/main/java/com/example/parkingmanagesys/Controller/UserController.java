@@ -41,6 +41,33 @@ public class UserController {
             return "Save_Failed";
         }
     }
+    //通过carId更新用户
+    @RequestMapping ("/update")
+    public String toUpdate(){
+        return "Update_UsersInformation";
+    }
+
+    @GetMapping("/DoUpdate")
+    public String updateUser(HttpServletRequest request){
+        String carId = request.getParameter("carId");
+        String color = request.getParameter("Color");
+        String userName = request.getParameter("userName");
+        String userPassWord = request.getParameter("userPassWord");
+        String cardType = request.getParameter("cardType");
+        String cardNum = request.getParameter("cardNum");
+        try{
+            if(color!="") {userService.updateCarColor(carId,color);}
+            if(!userName.isEmpty()) {userService.updateName(carId,userName);}
+            if(!userPassWord.isEmpty()) {userService.updatePassWord(carId,userPassWord);}
+            if(!cardType.isEmpty()) {userService.updateCardType(carId,cardType);}
+            if(!cardNum.isEmpty()) {userService.updateCardNum(carId,cardNum);}
+            return "Save_Successfully";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "Save_Failed";
+        }
+    }
+
 
     //查询所有用户
     @GetMapping("/query")
@@ -66,6 +93,9 @@ public class UserController {
             return "Del_Failed";
         }
     }
+
+
+
 
 }
 
