@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -25,22 +30,29 @@ public class QueryController {
     @Autowired
     private UserService userService;
     @RequestMapping("/userViewParking")
-    public ModelAndView toQuery(Model model){
+    public String toQuery(Model model){
         List<ParkingSpace> parkingSpaceList = parkingService.selectAll();
         model.addAttribute("parkingSpaceList",parkingSpaceList);
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.addObject("parkingSpaceList",parkingSpaceList);
-        modelAndView.setViewName("user-ViewParkingSpace");
-        return modelAndView;
+        return "user-ViewParkingSpace";
     }
-    @GetMapping("/bookSpace")
-    public String bookSpace(BookingInformation bookingInformation, List<ParkingSpace> parkingSpaceList,Model model){
-        if(parkingSpaceList.get(bookingInformation.getSpaceId()-1).getSpaceState()!="空闲") {
-            model.addAttribute("msg","该车位不是空闲车位");
+    @RequestMapping("/bookSpace")
+    public String bookSpace(@ModelAttribute BookingInformation bookingInformation,Model model,HttpSession session) throws ParseException {
+        User user=(User)session.getAttribute("user");
+        bookingInformation.setCarId(user.getCarId());
+        List<ParkingSpace> parkingSpaceList = parkingService.selectAll();
+        if(parkingSpaceList.get(bookingInformation.getSpaceId()-1).getSpaceState().compareTo("空闲")!=0){
+            model.addAttribute("msg","该车位不为空闲,请重新预定");
+            model.addAttribute("parkingSpaceList",parkingSpaceList);
             return "user-ViewParkingSpace";
         }
-        else userService.updateBookingInformationByCarId(bookingInformation);
-        return "user-ViewParkingSpace";
+        else {
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            bookingInformation.setBookingTime(ft.parse(bookingInformation.getRealBookingTime().replaceFirst("T", " ")));
+            userService.updateBookingInformationByCarId(bookingInformation);
+            model.addAttribute("msg","预定成功");
+            model.addAttribute("parkingSpaceList",parkingSpaceList);
+            return "user-ViewParkingSpace";
+        }
     }
     @RequestMapping("/toMyOrder")
     public String toMyOder(HttpSession session, Model model){

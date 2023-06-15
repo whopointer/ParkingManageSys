@@ -48,83 +48,17 @@
         } else {
           $(this).removeClass('is-valid');
           $(this).addClass('is-invalid');
-
         }
       });
+      $("")
     });
-  </script>
-  <!--检查车牌号格式结束-->
 
-  <!-- 检查预定时间是否符合标准-->
-  <script>
-    $(document).ready(function(){
-      $('#bookingTime').on("input",function(){
-        var bookingtime = $(this).val();
-        const dateObj = new Date(bookingtime);
-        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(bookingtime) && !isNaN(dateObj)) {
-          $(this).removeClass('is-invalid');
-          $(this).addClass('is-valid');
-        } else {
-          $(this).removeClass('is-valid');
-          $(this).addClass('is-invalid');
-        }
-      });
-    });
-  </script>
-  <!--检查预定时间格式结束-->
+    function submit_form(){
+      $("#exampleModal3").modal();
+    };
 
-  <!-- 检查到达时间是否符合标准-->
-  <script>
-    $(document).ready(function(){
-      $('#arrivalTime').on("input",function(){
-        var arrivaltime = $(this).val();
-        const dateObj = new Date(arrivaltime);
-        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(arrivaltime) && !isNaN(dateObj)) {
-          $(this).removeClass('is-invalid');
-          $(this).addClass('is-valid');
-        } else {
-          $(this).removeClass('is-valid');
-          $(this).addClass('is-invalid');
-        }
-      });
-    });
   </script>
-  <!--检查到达时间格式结束-->
 
-  <!-- 检查离开时间是否符合标准-->
-  <script>
-    $(document).ready(function(){
-      $('#departureTime').on("input",function(){
-        var departuretime = $(this).val();
-        const dateObj = new Date(departuretime);
-        if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(departuretime) && !isNaN(dateObj)) {
-          $(this).removeClass('is-invalid');
-          $(this).addClass('is-valid');
-        } else {
-          $(this).removeClass('is-valid');
-          $(this).addClass('is-invalid');
-        }
-      });
-    });
-  </script>
-  <!--检查离开时间格式结束-->
-
-  <!-- 检查用户卡号是否符合标准-->
-  <script>
-    $(document).ready(function(){
-      $("input[data-toggle='cardNum']").on("input",function(){
-        var carNum = $(this).val();
-        if (/^[A-Z]{1}[0-9]{5}$/.test(carNum)) {
-          $(this).removeClass('is-invalid');
-          $(this).addClass('is-valid');
-        } else {
-          $(this).removeClass('is-valid');
-          $(this).addClass('is-invalid');
-        }
-      });
-    });
-  </script>
-  <!--检查用户卡号格式结束-->
 
 </head>
 
@@ -258,7 +192,6 @@
       </div>
     </li>
 
-
     <!-- Sidebar Toggler (Sidebar) -->
     <!--切换侧边栏的可见性(自适应屏幕)-->
     <div class="text-center d-none d-md-inline">
@@ -371,7 +304,7 @@
       </div>
       <div class="modal-body">
         <!-- 表单 -->
-        <form action="http://localhost:8080/save">
+        <form th:action="@{/parking/carIn}">
           <!--插入车牌号-->
           <div class="form-group">
             <label for="exampleInputcarId">车牌号</label>
@@ -380,32 +313,8 @@
               输入不正确!示例：苏A12345
             </div>
           </div>
-          <!--插入用户卡号-->
-          <div class="form-group">
-            <label for="exampleInputcardNum">用户卡号</label>
-            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
-            <div class="invalid-feedback">
-              输入不正确!示例：A00001
-            </div>
-          </div>
-          <!--插入用户到达时间-->
-          <div class="form-group">
-            <label for="arrivalTime">到达时间</label>
-            <input type="datetime-local" class="form-control" name = "arrivalTime" id="arrivalTime" aria-describedby="arrivalTimeHelp" placeholder="请输入用户到达时间">
-            <div class="invalid-feedback">
-              输入不正确!示例：2023-06-15 02:30:51
-            </div>
-          </div>
-          <!--插入预定时间-->
-          <div class="form-group">
-            <label for="bookingTime">预定时间(可空)</label>
-            <input type="text" class="form-control" name = "bookingTime" id="bookingTime" aria-describedby="cardNumHelp" placeholder="请输入用户预定时间">
-            <div class="invalid-feedback">
-              输入不正确!示例：2023-06-15 02:30:51
-            </div>
-          </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary" onsubmit="submit_form()">提交</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-primary">重置</button>
           </div>
@@ -437,28 +346,30 @@
                 输入不正确!示例：苏A12345
               </div>
             </div>
-            <!--插入用户卡号-->
-            <div class="form-group">
-              <label for="exampleInputcardNum">用户卡号</label>
-              <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum1" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
-              <div class="invalid-feedback">
-                输入不正确!示例：A00001
-              </div>
-            </div>
-            <!--插入用户到达时间-->
-            <div class="form-group">
-              <label for="arrivalTime">离开时间</label>
-              <input type="text" class="form-control" name = "arrivalTime" id="departureTime" aria-describedby="departureTimeHelp" placeholder="请输入用户离开时间">
-              <div class="invalid-feedback">
-                输入不正确!示例：2023-06-15 02:30:51
-              </div>
-            </div>
             <div style="text-align:center; width:100%;height:100%;margin:0px;">
               <button type="submit" class="btn btn-primary">提交</button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
               <button type="reset" class="btn btn-primary">重置</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--  车辆入场后-->
+  <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModaltabel3">入场信息</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="exampleInputcarId">车牌号</label>
+          <!-- 表单 -->
         </div>
       </div>
     </div>

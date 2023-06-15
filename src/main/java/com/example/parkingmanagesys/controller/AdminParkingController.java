@@ -22,4 +22,22 @@ public class AdminParkingController {
         model.addAttribute("parkingSpaceList",parkingSpaceList);
         return "View_ParkingSpace";
     }
+
+    //for test
+    @RequestMapping("/test")
+    public String test(){
+        return "Vichcle_InOut";
+    }
+
+    //车辆入场
+    @RequestMapping("/carIn")
+    public String carIn(String carId,Model model){
+        model.addAttribute("spaceId",parkingService.carIn(carId));
+        return "Vichcle_InOut";
+    }
+    @RequestMapping("/carOut")
+    public String carOut(String carId,Model model){
+        model.addAttribute("fee",parkingService.carOut(carId));
+        return "Vichcle_InOut";
+    }
 }

@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>车位信息查询</title>
+  <title>用户信息查询</title>
 
   <!-- 自定义模板字体 -->
   <!--引入名为all.min的CSS文件-->
@@ -28,14 +28,7 @@
 
   <!-- 自定义界面 -->
   <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" th:href="@{vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
-  <style type="text/css">
-    .btn-container{
-      text-align: center;
-    }
-    .btn btn-primary profile-button{
-      display: inline-block;
-    }
-  </style>
+
 </head>
 
 <body id="page-top">
@@ -133,14 +126,27 @@
           <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small" >Admin</span>
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
               <img class="img-profile rounded-circle"
-                   th:src="@{img/undraw_mypic.jpg}" src="../static/img/undraw_mypic.jpg">
+                   src="../static/img/undraw_mypic.jpg">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                  aria-labelledby="userDropdown">
-              <a class="dropdown-item" th:href="@{/}" href="login.html" data-toggle="modal" data-target="#logoutModal">
+              <!--              <a class="dropdown-item" href="#">-->
+              <!--                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>-->
+              <!--                个人信息-->
+              <!--              </a>-->
+              <!--              <a class="dropdown-item" href="#">-->
+              <!--                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>-->
+              <!--                设置-->
+              <!--              </a>-->
+              <!--              <a class="dropdown-item" href="#">-->
+              <!--                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>-->
+              <!--                操作记录-->
+              <!--              </a>-->
+              <!--              <div class="dropdown-divider"></div>-->
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 注销
               </a>
@@ -157,11 +163,13 @@
 
         <!-- 表头 -->
         <h1 class="h3 mb-2 text-gray-800">车位信息查询</h1>
-
+        <div th:text="${msg}" style="margin-top: 20px;text-align: center;color: red"></div>
 
         <!-- 违规数据表格 -->
         <div class="card shadow mb-4">
-
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">车位信息</h6>
+          </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -184,9 +192,9 @@
             </div>
           </div>
         </div>
-      <div class="btn-container">
+        <div class="btn-container">
           <button class="btn btn-primary profile-button"  data-toggle="modal" data-target="#exampleModal">预定车位</button>
-      </div>
+        </div>
       </div>
       <!-- /.container-fluid -->
 
@@ -208,6 +216,7 @@
 
 </div>
 <!-- End of Page Wrapper -->
+
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -244,23 +253,18 @@
       </div>
       <div class="modal-body">
         <!-- 表单 -->
-        <form  th:action="@{/bookSpace}">
-
+        <form  th:action="@{/bookSpace}" method="post">
           <div class="form-group">
             <label for="exampleInputSpaceId">车位号</label>
             <input type="text" class="form-control" name = "spaceId" id="exampleInputSpaceId" aria-describedby="spaceHelp" placeholder="请输入车位号">
           </div>
           <div class="form-group">
-            <label for="exampleInputCarId">车牌号</label>
-            <input type="text" class="form-control" name = "carId" id="exampleInputCarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
-          </div>
-          <div class="form-group">
             <label for="exampleInputBookingTime">预计到达时间</label>
-            <input type="text" class="form-control" name = "bookingTime" id="exampleInputBookingTime" aria-describedby="bookingTimeHelp" placeholder="请输入预计到达时间">
+            <input type="datetime-local" class="form-control" name = "realBookingTime" id="exampleInputBookingTime" aria-describedby="bookingTimeHelp" placeholder="请输入预计到达时间">
             <small id="carIdHelp" class="form-text text-muted">请仔细检查每一项数据！</small>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" th:href="@{/bookSpace}" class="btn btn-primary">提交</button>
+            <button type="submit" class="btn btn-primary">提交</button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button type="reset" class="btn btn-primary">重置</button>
           </div>
@@ -269,6 +273,9 @@
     </div>
   </div>
 </div>
+
+
+
 <script th:src="@{https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js}"></script>
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{vendor/jquery/jquery.min.js}" src="../static/vendor/jquery/jquery.min.js"></script>

@@ -17,7 +17,7 @@ public interface BookingInformationMapper {
     //根据id删除
     Boolean deleteByBookingId(Integer bookingId);
     //插入预定信息
-    Boolean insertInformation(BookingInformation bookingInformation);
+    Boolean insertBookingInformation(BookingInformation bookingInformation);
     //只改到达时间和费用
     Boolean updateByBookingId(BookingInformation bookingInformation);
 }

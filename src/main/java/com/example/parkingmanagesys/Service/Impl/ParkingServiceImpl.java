@@ -106,7 +106,7 @@ public class ParkingServiceImpl implements ParkingService {
         List<ParkingSpace> parkingSpaceList1=new ArrayList<>();
         for(int i=0;i<parkingSpaceList.size();i++){
             bookingInformation=bookingInformationMapper.selectBookingInformationBySpaceId(parkingSpaceList.get(i).getSpaceId());
-            if(parkingSpaceList.get(i).getSpaceState()=="Spare")
+            if(parkingSpaceList.get(i).getSpaceState().compareTo("Spare")==0)
             {
                 if(bookingInformation==null) {
                     parkingSpace = parkingSpaceList.get(i);

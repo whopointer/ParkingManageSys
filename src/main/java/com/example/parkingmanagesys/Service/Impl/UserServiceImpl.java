@@ -42,7 +42,7 @@ private ParkingHistoryMapper parkingHistoryMapper;
     public boolean updateBookingInformationByCarId(BookingInformation bookingInformation){
         List<BookingInformation> bookingInformationList=bookingInformationMapper.selectAll();
         bookingInformation.setBookingId(bookingInformationList.size()+1);
-        return bookingInformationMapper.insertInformation(bookingInformation);
+        return bookingInformationMapper.insertBookingInformation(bookingInformation);
     }
 
     @Override
