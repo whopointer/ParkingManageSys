@@ -104,7 +104,7 @@ INSERT INTO Parking_Space(Space_Type,Space_State)
                        VALUES
                        ("Permanent","Busy");
 
-# 插入10条空闲车位
+# 插入20条空闲车位
 INSERT INTO Parking_Space(Space_Type)
 		       VALUES
                        ("Temporary");
@@ -134,6 +134,36 @@ INSERT INTO Parking_Space(Space_Type)
                        ("Temporary");
 INSERT INTO Parking_Space(Space_Type)
 		       VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                       ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                        ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
+                        ("Temporary");
+INSERT INTO Parking_Space(Space_Type)
+VALUES
                        ("Temporary");
 ######################################################################################
 # 插入专用车位表
@@ -190,14 +220,22 @@ INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time,Arrival_Time, Booki
 #未到场：
 INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
                        VALUES
-                       (15,"苏A61111","2023-06-08 22:33:36");
+                           (15,"苏A21111","2023-06-08 22:33:36");
 INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
                        VALUES
-                       (16,"苏A71111","2023-06-08 22:33:36");
+                           (16,"苏A31111","2023-06-08 22:33:36");
 INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
                        VALUES
-                       (17,"苏A81111","2023-06-08 22:33:36");
-
+                           (17,"苏A41111","2023-06-08 22:33:36");
+INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
+                       VALUES
+                           (18,"苏A51111","2023-06-08 22:33:36");
+INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
+                       VALUES
+                           (19,"苏A61111","2023-06-08 22:33:36");
+INSERT INTO Booking_information(Space_Id,Car_Id,Booking_Time)
+                       VALUES
+                           (20,"苏A71111","2023-06-08 22:33:36");
 
 ##########################################################################################
 
@@ -243,38 +281,38 @@ INSERT INTO Fee(Car_Id,Parking_Fee)
 # 插入时可以先去user表里找是否为永久卡，为永久卡则自动插入数据
 # 判断是否为专用车位，为专用车位则将Parking_Fee和 Booking_Fee设置为0
 
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A11111",0,0,1,"2023-06-05 23:33:36","2023-06-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A11111",0,1,0,1,"2023-06-05 23:33:36","2023-06-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A22222",0,0,2,"2023-07-05 15:33:36","2023-07-05 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A22222",0,2,0,2,"2023-07-05 15:33:36","2023-07-05 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A33333",0,0,3,"2023-08-05 16:33:36","2023-08-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A33333",0,3,0,3,"2023-08-05 16:33:36","2023-08-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A44444",0,0,4,"2023-09-05 23:33:36","2023-09-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A44444",0,4,0,4,"2023-09-05 23:33:36","2023-09-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A55555",0,0,5,"2023-10-05 15:33:36","2023-10-06 23:33:36");
+                       ("苏A55555",0,5,0,5,"2023-10-05 15:33:36","2023-10-06 23:33:36");
 
 # 插入临时车主
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A21111",11,12,1,"2023-06-05 23:33:36","2023-06-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A21111",11,6,12,1,"2023-06-05 23:33:36","2023-06-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A31111",13.5,0,2,"2023-07-05 15:33:36","2023-07-05 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A31111",13.5,7,0,2,"2023-07-05 15:33:36","2023-07-05 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A41111",17.8,0,3,"2023-08-05 16:33:36","2023-08-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A41111",17.8,8,0,3,"2023-08-05 16:33:36","2023-08-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A51111",14.2,0,4,"2023-09-05 23:33:36","2023-09-06 23:33:36");
-INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Fee,Space_Id,Arrival_Time,Depature_Time)
+                       ("苏A51111",14.2,9,0,4,"2023-09-05 23:33:36","2023-09-06 23:33:36");
+INSERT INTO Parking_History(Car_Id,Parking_Fee,Booking_Id,Booking_Fee,Space_Id,Arrival_Time,Departure_Time)
                        VALUES
-                       ("苏A61111",28.6,13,5,"2023-10-05 15:33:36","2023-10-06 23:33:36");
+                       ("苏A61111",28.6,10,13,5,"2023-10-05 15:33:36","2023-10-06 23:33:36");
 ################################################################################################
 #插入违规信息
 

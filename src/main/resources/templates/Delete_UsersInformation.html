@@ -276,6 +276,12 @@
                   <td th:text="${user.cardType}"></td>
                   <td th:text="${user.cardNum}"></td>
                   <td th:text="${user.Color}"></td>
+                  <td>
+                    <form method="post" action="http://localhost:8080/del">
+                      <input type="hidden" name="deleteId" th:value="${user.carId}" />
+                      <button type="submit">删除用户</button>
+                    </form>
+                  </td>
                 </tr>
                 </tbody>
               </table>

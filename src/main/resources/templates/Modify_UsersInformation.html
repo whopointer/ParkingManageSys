@@ -218,12 +218,26 @@
         <!-- 分割线 -->
         <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- 违规管理 -->
+        <!-- 管理车场进出 -->
         <li class="nav-item">
-            <a class="nav-link" href="Vichcle_InOut.html">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#vichclecollapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-warehouse"></i>
-                <span>车辆进出</span></a>
+                <span>车辆进出</span>
+            </a>
+            <div id="vichclecollapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
+                        车辆入场
+                    </a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal1">
+                        车辆出场
+                    </a>
+
+                </div>
+            </div>
         </li>
+
 
         <!-- Sidebar Toggler (Sidebar) -->
         <!--切换侧边栏的可见性(自适应屏幕)-->
@@ -288,52 +302,47 @@
             <div class="container-fluid">
 
                 <!-- 表头 -->
-                <h1 class="h3 mb-2 text-gray-800">车位信息查询</h1>
+                <h1 class="h3 mb-2 text-gray-800">用户信息查询</h1>
 
 
                 <!-- 违规数据表格 -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">违规信息</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">用户信息</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>车位号</th>
-                                    <th>车位类型</th>
-                                    <th>车位状态</th>
+                                    <th>姓名</th>
+                                    <th>车牌号</th>
+                                    <th>联系方式</th>
+                                    <th>用户卡类型</th>
+                                    <th>用户卡编号</th>
+                                    <th>车辆颜色</th>
+                                    <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>车位号</th>
-                                    <th>车位类型</th>
-                                    <th>车位状态</th>
+                                    <th>姓名</th>
+                                    <th>车牌号</th>
+                                    <th>联系方式</th>
+                                    <th>用户卡类型</th>
+                                    <th>用户卡编号</th>
+                                    <th>车辆颜色</th>
+                                    <th>操作</th>
                                 </tr>
                                 </tfoot>
-                                <!--数据库查询内容，后期编写-->
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>专用车位</td>
-                                    <td>损坏</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>公用车位</td>
-                                    <td>预定</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>公用车位</td>
-                                    <td>忙碌</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>专用车位</td>
-                                    <td>空闲</td>
+                                <tr th:each="user : ${users}">
+                                    <td th:text="${user.userName}"></td>
+                                    <td th:text="${user.carId}"></td>
+                                    <td th:text="${user.userPhone}"></td>
+                                    <td th:text="${user.cardType}"></td>
+                                    <td th:text="${user.cardNum}"></td>
+                                    <td th:text="${user.Color}"></td>
                                 </tr>
                                 </tbody>
                             </table>
