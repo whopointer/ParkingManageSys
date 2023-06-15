@@ -4,8 +4,6 @@ package com.example.parkingmanagesys.Controller;
 import com.example.parkingmanagesys.Pojo.User;
 import com.example.parkingmanagesys.Service.LoginService;
 import com.example.parkingmanagesys.Service.UserService;
-import com.example.parkingmanagesys.util.Result;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -52,6 +50,22 @@ public class UserController {
         return "View_UsersInformation";
     }
 
+    //通过carId删除用户
+    @RequestMapping("/delete")
+    public String toDelte(){
+        return "Delete_UsersInformation";
+    }
+
+    @PostMapping("/del")
+    public String delUser(@RequestParam("deleteId") String carId) {
+        try{
+            userService.deleteByCarId(carId);
+            return "Del_successfully";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "Del_Failed";
+        }
+    }
 
 }
 

@@ -4,8 +4,12 @@ spring:
     username: root
     password: 285637zq
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
 
 mybatis:
   mapper-locations: classpath:mybatis/*.xml

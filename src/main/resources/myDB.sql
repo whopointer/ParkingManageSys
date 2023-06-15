@@ -74,15 +74,18 @@ CREATE TABLE IF NOT EXISTS Parking(
 
 #创建历史停车表
 CREATE TABLE IF NOT EXISTS Parking_History(
+   History_id INT UNSIGNED AUTO_INCREMENT,
    Car_Id VARCHAR(50) NOT NULL,
    Parking_Fee FLOAT NOT NULL,
+   Booking_Id INT UNSIGNED,
    Booking_Fee FLOAT,
    Space_Id INT UNSIGNED,
    Arrival_Time DATETIME NOT NULL,
-   Depature_Time DATETIME NOT NULL,
-   PRIMARY KEY (Car_Id),
+   Departure_Time DATETIME NOT NULL,
+   PRIMARY KEY (History_id),
    FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id)
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id),
+   FOREIGN KEY (Booking_Id) REFERENCES Booking_information(Booking_Id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # 创建违规信息表
