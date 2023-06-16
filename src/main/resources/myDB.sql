@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Fee(
    Car_Id VARCHAR(50) NOT NULL,
    Parking_Fee FLOAT NOT NULL,
    PRIMARY KEY (Car_Id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id)
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #############以上为基本表#####################
@@ -41,8 +41,8 @@ CREATE TABLE IF NOT EXISTS Special(
    Car_Id VARCHAR(50) NOT NULL,
    Space_Id INT UNSIGNED NOT NULL,
    PRIMARY KEY (Car_Id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id)
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE,
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #创建预定信息表
@@ -54,9 +54,10 @@ CREATE TABLE IF NOT EXISTS Booking_information(
    Arrival_Time DATETIME,
    Booking_Fee FLOAT DEFAULT 0.0,
    Booking_State VARCHAR(50) DEFAULT 'Unfinished',
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id) ON DELETE CASCADE,
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE,
    PRIMARY KEY (Booking_Id)
+
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #创建停车表
@@ -67,8 +68,8 @@ CREATE TABLE IF NOT EXISTS Parking(
    Parking_Fee FLOAT DEFAULT 0.0,
    Arrival_Time DATETIME NOT NULL,
    PRIMARY KEY (Car_Id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id)
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE,
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -83,8 +84,8 @@ CREATE TABLE IF NOT EXISTS Parking_History(
    Arrival_Time DATETIME NOT NULL,
    Departure_Time DATETIME NOT NULL,
    PRIMARY KEY (History_id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id),
-   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id)
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE,
+   FOREIGN KEY (Space_Id) REFERENCES Parking_Space(Space_Id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # 创建违规信息表
@@ -93,8 +94,8 @@ CREATE TABLE IF NOT EXISTS Violations(
    Car_Id VARCHAR(50) NOT NULL,
    Violation_Count INT,
    Violation_Detail VARCHAR(100),
-   PRIMARY KEY (Violation_Id),
-   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id)
+   PRIMARY KEY (Violation_Id) ,
+   FOREIGN KEY (Car_Id) REFERENCES Users(Car_Id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

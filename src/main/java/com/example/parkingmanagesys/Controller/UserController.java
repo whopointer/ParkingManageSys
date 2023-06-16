@@ -5,6 +5,7 @@ import com.example.parkingmanagesys.Pojo.User;
 import com.example.parkingmanagesys.Service.LoginService;
 import com.example.parkingmanagesys.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +23,66 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    //通过carId更新用户
+    @GetMapping("/update")
+    public String updateUser(HttpServletRequest request,Model model){
+        String carId = request.getParameter("carId");
+        String color = request.getParameter("Color");
+        String userName = request.getParameter("userName");
+        String userPassWord = request.getParameter("userPassWord");
+        String cardType = request.getParameter("cardType");
+        String cardNum = request.getParameter("cardNum");
+        try{
+            String result = "";
+            if(color!="") {
+                userService.updateCarColor(carId,color);
+                result += "颜色更新成功！ ";
+            }
+            if(userName!="") {
+                userService.updateName(carId,userName);
+                result += "用户名更新成功！ ";
+            }
+            if(userPassWord!="") {
+                userService.updatePassWord(carId,userPassWord);
+                result += "密码更新成功！ ";
+            }
+            if(cardType!="") {
+                userService.updateCardType(carId,cardType);
+                result += "停车卡类型更新成功！ ";
+            }
+            if(cardNum!="") {
+                userService.updateCardNum(carId,cardNum);
+                result += "停车卡卡号更新成功！ ";
+            }
+            List<User> userList = userService.selectAll();
+            model.addAttribute("users", userList);
+            model.addAttribute("msg",result);
+            return "Modify_UsersInformation";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "Modify_UsersInformation";
+        }
+    }
+
+    //查询所有用户
+    @GetMapping("/query")
+    public String QueryUsers(Model model) {
+        List<User> userList = userService.selectAll();
+        if(userList!=null){
+            model.addAttribute("users", userList);
+            model.addAttribute("msg","查询成功");
+        }
+        else {
+            model.addAttribute("msg","查询失败");
+        }
+        return "Modify_UsersInformation";
+    }
+
+
     //插入新用户
-    @GetMapping("/save")
-    public String SaveUser(HttpServletRequest request){
+    @RequestMapping ("/save")
+    public String SaveUser(HttpServletRequest request,Model model){
         String carid = request.getParameter("carId");
         String Color = request.getParameter("Color");
         String userName = request.getParameter("userName");
@@ -35,67 +93,32 @@ public class UserController {
         try{
             User user = new User(carid,Color,userName,userPassWord,userPhone,cardType,cardNum);
             loginService.insertUser(user);
-            return "Save_Successfully";
+            model.addAttribute("msg","插入成功！");
+            return "Modify_UsersInformation";
         }catch(Exception e){
             e.printStackTrace();
-            return "Save_Failed";
+            model.addAttribute("msg","插入失败！");
+            return "Modify_UsersInformation";
         }
-    }
-    //通过carId更新用户
-    @RequestMapping ("/update")
-    public String toUpdate(){
-        return "Update_UsersInformation";
-    }
-
-    @GetMapping("/DoUpdate")
-    public String updateUser(HttpServletRequest request){
-        String carId = request.getParameter("carId");
-        String color = request.getParameter("Color");
-        String userName = request.getParameter("userName");
-        String userPassWord = request.getParameter("userPassWord");
-        String cardType = request.getParameter("cardType");
-        String cardNum = request.getParameter("cardNum");
-        try{
-            if(color!="") {userService.updateCarColor(carId,color);}
-            if(!userName.isEmpty()) {userService.updateName(carId,userName);}
-            if(!userPassWord.isEmpty()) {userService.updatePassWord(carId,userPassWord);}
-            if(!cardType.isEmpty()) {userService.updateCardType(carId,cardType);}
-            if(!cardNum.isEmpty()) {userService.updateCardNum(carId,cardNum);}
-            return "Save_Successfully";
-        }catch(Exception e){
-            e.printStackTrace();
-            return "Save_Failed";
-        }
-    }
-
-
-    //查询所有用户
-    @GetMapping("/query")
-    public String QueryUsers(Model model) {
-        List<User> userList = userService.selectAll();
-        model.addAttribute("users", userList);
-        return "View_UsersInformation";
     }
 
     //通过carId删除用户
-    @RequestMapping("/delete")
-    public String toDelte(){
-        return "Delete_UsersInformation";
-    }
-
     @PostMapping("/del")
-    public String delUser(@RequestParam("deleteId") String carId) {
+    public String delUser(@RequestParam("deleteId") String carId,Model model) {
+            List<User> userList = userService.selectAll();
+            model.addAttribute("users", userList);
         try{
             userService.deleteByCarId(carId);
-            return "Del_successfully";
+            model.addAttribute("users", userList);
+            model.addAttribute("msg","删除成功");
+            return "Modify_UsersInformation";
         }catch(Exception e){
             e.printStackTrace();
-            return "Del_Failed";
+            model.addAttribute("users", userList);
+            model.addAttribute("msg","删除失败该用户有未删除的订单");
+            return "Modify_UsersInformation";
         }
     }
-
-
-
-
 }
+
 
