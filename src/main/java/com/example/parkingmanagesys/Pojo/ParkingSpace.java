@@ -6,10 +6,11 @@ public class ParkingSpace {
     private Integer spaceId;
     private String spaceType;
     private String spaceState;
-private String realArrivalTime;
+    private String realArrivalTime;
     private String realBookingTime;
     private String parkingCarId;
     private String bookingCarId;
+
 
     public String getBookingCarId() {
         return bookingCarId;

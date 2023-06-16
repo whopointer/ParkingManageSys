@@ -1,6 +1,7 @@
 package com.example.parkingmanagesys.DAO;
 
 import com.example.parkingmanagesys.Pojo.Parking;
+import com.example.parkingmanagesys.Pojo.ParkingSpace;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -15,4 +16,7 @@ public interface ParkingMapper {
     boolean deleteByCarId(String carId);
     //计算停车总数
     double count();
+    //根据id插入车位
+    public boolean insertBySpaceId(ParkingSpace parkingSpace);
+
 }

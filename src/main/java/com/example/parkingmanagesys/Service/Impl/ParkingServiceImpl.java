@@ -12,7 +12,6 @@ import com.example.parkingmanagesys.Service.ParkingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -175,6 +174,21 @@ public class ParkingServiceImpl implements ParkingService {
             fee+=bookingInformation.getBookingFee();
         }
         return fee;
+    }
+
+    @Override
+    public boolean updateSpaceType(String spaceId,String spaceType) {
+        return parkingSpaceMapper.updateSpaceType(spaceId,spaceType);
+    }
+
+    @Override
+    public boolean updateSpaceState(String spaceId, String spaceState) {
+        return parkingSpaceMapper.updateSpceState(spaceId,spaceState);
+    }
+
+    @Override
+    public boolean insertBySpaceId(ParkingSpace parkingSpace) {
+        return parkingMapper.insertBySpaceId(parkingSpace);
     }
 
 }

@@ -72,9 +72,24 @@
   <!-- 检查用户卡类型是否符合标准-->
   <script>
     $(document).ready(function(){
-      $('#exampleInputcardType').on("input",function(){
+      $('#TypeInputcardType').on("input",function(){
         var carType = $(this).val();
         if (carType == 'Permanent'||carType == 'Temporary') {
+          $(this).removeClass('is-invalid');
+          $(this).addClass('is-valid');
+        } else {
+          $(this).removeClass('is-valid');
+          $(this).addClass('is-invalid');
+
+        }
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+      $('#StateInputcardType').on("input",function(){
+        var carType = $(this).val();
+        if (carType == 'Busy'||carType == 'Spare') {
           $(this).removeClass('is-invalid');
           $(this).addClass('is-valid');
         } else {
@@ -200,30 +215,11 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">选择需要管理的内容：</h6>
-          <a class="collapse-item" th:href="@{/toinsert}">插入车位信息</a>
-          <a class="collapse-item" th:href="@{/toinsert}">修改车位信息</a>
+          <a class="collapse-item" href="#" data-toggle="modal" data-target="#exampleModal">插入车位信息</a>
+          <a class="collapse-item" href="#" data-toggle="modal" data-target="#updateModal">修改车位信息</a>
         </div>
       </div>
     </li>
-
-    <!-- 管理违规信息 -->
-    <li class="nav-item">
-      <!--操作collapseTwo对象-->
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#violation"
-         aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span>违规信息管理</span>
-      </a>
-      <div id="violation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">选择需要管理的内容：</h6>
-          <a class="collapse-item" href="Del_Failed.html">插入违规信息</a>
-          <a class="collapse-item" href="Del_Failed.html">修改违规信息</a>
-        </div>
-      </div>
-    </li>
-
-
 
     <!-- 分割线 -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -312,14 +308,14 @@
       <div class="container-fluid">
 
         <!-- 表头 -->
-        <h1 class="h3 mb-2 text-gray-800">用户信息查询</h1>
+        <h1 class="h3 mb-2 text-gray-800">车位信息查询</h1>
 
 
         <!-- 数据表格 -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
-            <a  href="http://localhost:8080/query">
-              <h6 class="m-0 font-weight-bold text-primary">刷新用户信息</h6>
+            <a  href="http://localhost:8080/querySpace">
+              <h6 class="m-0 font-weight-bold text-primary">刷新车位信息</h6>
             </a>
           </div>
           <div class="card-body">
@@ -327,40 +323,24 @@
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                  <th>姓名</th>
-                  <th>车牌号</th>
-                  <th>联系方式</th>
-                  <th>用户卡类型</th>
-                  <th>用户卡编号</th>
-                  <th>车辆颜色</th>
+                  <th>车位号</th>
+                  <th>车位类型</th>
+                  <th>车位状态</th>
                   <th>操作</th>
                 </tr>
                 </thead>
                 <tfoot>
                 <tr>
-                  <th>姓名</th>
-                  <th>车牌号</th>
-                  <th>联系方式</th>
-                  <th>用户卡类型</th>
-                  <th>用户卡编号</th>
-                  <th>车辆颜色</th>
-                  <th>操作</th>
+                  <th>车位号</th>
+                  <th>车位类型</th>
+                  <th>车位状态</th>
                 </tr>
                 </tfoot>
                 <tbody>
-                <tr th:each="user : ${users}">
-                  <td th:text="${user.userName}"></td>
-                  <td th:text="${user.carId}"></td>
-                  <td th:text="${user.userPhone}"></td>
-                  <td th:text="${user.cardType}"></td>
-                  <td th:text="${user.cardNum}"></td>
-                  <td th:text="${user.Color}"></td>
-                  <td>
-                    <form method="post" action="http://localhost:8080/del">
-                      <input type="hidden" name="deleteId" th:value="${user.carId}" />
-                      <button type="submit">删除用户</button>
-                    </form>
-                  </td>
+                <tr th:each="space : ${spaces}">
+                  <td th:text="${space.spaceId}"></td>
+                  <td th:text="${space.spaceType}"></td>
+                  <td th:text="${space.spaceState}"></td>
                 </tr>
                 </tbody>
               </table>
@@ -416,64 +396,33 @@
 </div>
 
 
-<!--插入用户-->
+<!--插入车位信息-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModaltabel">插入用户信息</h5>
+        <h5 class="modal-title" id="exampleModaltabel">插入车位信息</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <!-- 表单 -->
-        <form action="http://localhost:8080/save" method="post">
-          <!--插入车牌号-->
+        <form action="http://localhost:8080/saveSpace" method="post">
+          <!--插入车位类型-->
           <div class="form-group">
-            <label for="exampleInputcarId">车牌号</label>
-            <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
-            <div class="invalid-feedback">
-              输入不正确!示例：苏A12345
-            </div>
-          </div>
-          <!--插入车颜色-->
-          <div class="form-group">
-            <label for="exampleInputColor">颜色</label>
-            <input type="text" class="form-control" name = "Color" id="exampleInputColor" aria-describedby="ColorHelp" placeholder="请输入颜色">
-          </div>
-          <!--插入用户名-->
-          <div class="form-group">
-            <label for="exampleInputuserName">用户名</label>
-            <input type="text" class="form-control" name = "userName" id="exampleInputuserName" aria-describedby="userNameHelp" placeholder="请输入用户名">
-          </div>
-          <!--插入用户密码-->
-          <div class="form-group">
-            <label for="exampleInputuserPassWord">密码</label>
-            <input type="text" class="form-control" name = "userPassWord" id="exampleInputuserPassWord" aria-describedby="userPassWordHelp" placeholder="请输入密码">
-          </div>
-          <!--插入用户手机号-->
-          <div class="form-group">
-            <label for="exampleInputuserPhone">手机号</label>
-            <input type="text" class="form-control" data-toggle="tooltip" name = "userPhone" id="exampleInputuserPhone" aria-describedby="userPhoneHelp" placeholder="请输入手机号">
-            <div class="invalid-feedback">
-              请输入正确的中国大陆手机格式
-            </div>
-          </div>
-          <!--插入用户卡类型-->
-          <div class="form-group">
-            <label for="exampleInputcardType">用户卡类型</label>
-            <input type="text" class="form-control" name = "cardType" id="exampleInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入用户卡类型">
+            <label for="TypeInputcardType">车位类型</label>
+            <input type="text" class="form-control" name = "cardType" id="TypeInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位类型">
             <div class="invalid-feedback">
               输入不正确!应为：Permanent 或 Temporary
             </div>
           </div>
-          <!--插入用户卡号-->
+          <!--插入车位状态-->
           <div class="form-group">
-            <label for="exampleInputcardNum">用户卡号</label>
-            <input type="text" class="form-control" name = "cardNum" id="exampleInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
+            <label for="StateInputcardType">车位状态</label>
+            <input type="text" class="form-control" name = "cardState" id="StateInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位状态">
             <div class="invalid-feedback">
-              输入不正确!示例：A00001
+              输入不正确!应为：Busy 或 Spare
             </div>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
@@ -488,6 +437,7 @@
 </div>
 <!--插入用户信息结束-->
 
+
 <!--修改用户信息-->
 <!-- 模态框 -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -501,46 +451,29 @@
       </div>
       <div class="modal-body">
         <!-- 表单 -->
-        <form action="http://localhost:8080/update">
-          <!--插入车牌号-->
+        <form action="http://localhost:8080/updateSpace">
+          <!--获取车位号-->
           <div class="form-group">
-            <label for="exampleInputcarId">输入需要更改信息的车牌号</label>
-            <input type="text" class="form-control" data-toggle="check" name = "carId" id="modifyInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
+            <label for="TypeInputcardType">输入需要更改信息的车位号</label>
+            <input type="text" class="form-control" data-toggle="check" name = "spaceId" id="modifyInputcarId" aria-describedby="carIdHelp" placeholder="请输入车位号">
             <div class="invalid-feedback">
-              输入不正确!示例：苏A12345
+              输入不正确!示例：1
             </div>
           </div>
-          <!--插入车颜色-->
+          <!--修改车类型-->
           <div class="form-group">
-            <label for="exampleInputColor">颜色</label>
-            <input type="text" class="form-control" name = "Color" id="modifyInputColor" aria-describedby="ColorHelp" placeholder="请输入颜色">
-          </div>
-          <!--修改用户名-->
-          <div class="form-group">
-            <label for="exampleInputuserName">用户名</label>
-            <input type="text" class="form-control" name = "userName" id="modifyInputuserName" aria-describedby="userNameHelp" placeholder="请输入用户名">
-          </div>
-          <!--修改用户密码-->
-          <div class="form-group">
-            <label for="exampleInputuserPassWord">密码</label>
-            <input type="text" class="form-control" name = "userPassWord" id="modifyInputuserPassWord" aria-describedby="userPassWordHelp" placeholder="请输入密码">
-          </div>
-          <!--修改用户卡类型-->
-          <div class="form-group">
-            <label for="exampleInputcardType">用户卡类型</label>
-            <p style="font-size: 10px;color:red;">注：仅非永久卡用户可修改此项</p>
-            <input type="text" class="form-control" name = "cardType" id="modifyInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入用户卡类型">
+            <label for="TypeInputcardType">车位类型</label>
+            <input type="text" class="form-control" name = "spaceType" id="modifyType" aria-describedby="ColorHelp" placeholder="请输入车位类型">
             <div class="invalid-feedback">
-              输入不正确!应为：Permanent 或 Temporary
+              输入不正确!示例：Permanent 或 Temporary
             </div>
           </div>
-          <!--修改用户卡号-->
+          <!--修改车状态-->
           <div class="form-group">
-            <label for="exampleInputcardNum">用户卡号</label>
-            <p style="font-size: 10px;color:red;">注：仅非永久卡用户可修改此项</p>
-            <input type="text" class="form-control" name = "cardNum" id="modifyInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
+            <label for="StateInputcardType">车位状态</label>
+            <input type="text" class="form-control" name = "SpaceState" id="modifyState" aria-describedby="ColorHelp" placeholder="请输入车位状态">
             <div class="invalid-feedback">
-              输入不正确!示例：A00001
+              输入不正确!示例：Busy 或 Spare
             </div>
           </div>
           <div style="text-align:center; width:100%;height:100%;margin:0px;">
@@ -554,113 +487,113 @@
   </div>
 </div>
 
-<!--车辆入场-->
-<!-- 模态框 -->
-<div class="modal fade" id="vichclein" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="vichcle">输入入场信息</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
+<!--&lt;!&ndash;车辆入场&ndash;&gt;-->
+<!--&lt;!&ndash; 模态框 &ndash;&gt;-->
+<!--<div class="modal fade" id="vichclein" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="vichcle">输入入场信息</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
 
-        <!-- 表单 -->
-        <form action="http://localhost:8080/save">
-          <!--插入车牌号-->
-          <div class="form-group">
-            <label for="exampleInputcarId">车牌号</label>
-            <input type="text" class="form-control" data-toggle="check" name = "carId" id="vichcleinInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">
-            <div class="invalid-feedback">
-              输入不正确!示例：苏A12345
-            </div>
-          </div>
-          <!--插入用户卡号-->
-          <div class="form-group">
-            <label for="exampleInputcardNum">用户卡号</label>
-            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="vichcleinInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
-            <div class="invalid-feedback">
-              输入不正确!示例：A00001
-            </div>
-          </div>
-          <!--插入用户到达时间-->
-          <div class="form-group">
-            <label for="arrivalTime">到达时间</label>
-            <input type="datetime-local" class="form-control" name = "arrivalTime" id="arrivalTime" aria-describedby="arrivalTimeHelp" placeholder="请输入用户到达时间">
-            <div class="invalid-feedback">
-              输入不正确!示例：2023-06-15 02:30:51
-            </div>
-          </div>
-          <!--插入预定时间-->
-          <div class="form-group">
-            <label for="bookingTime">预定时间(可空)</label>
-            <input type="text" class="form-control" name = "bookingTime" id="bookingTime" aria-describedby="cardNumHelp" placeholder="请输入用户预定时间">
-            <div class="invalid-feedback">
-              输入不正确!示例：2023-06-15 02:30:51
-            </div>
-          </div>
-          <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" class="btn btn-primary">提交</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="reset" class="btn btn-primary">重置</button>
-          </div>
-        </form>
+<!--        &lt;!&ndash; 表单 &ndash;&gt;-->
+<!--        <form action="http://localhost:8080/save">-->
+<!--          &lt;!&ndash;插入车牌号&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="exampleInputcarId">车牌号</label>-->
+<!--            <input type="text" class="form-control" data-toggle="check" name = "carId" id="vichcleinInputcarId" aria-describedby="carIdHelp" placeholder="请输入车牌号">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：苏A12345-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;插入用户卡号&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="exampleInputcardNum">用户卡号</label>-->
+<!--            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="vichcleinInputcardNum" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：A00001-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;插入用户到达时间&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="arrivalTime">到达时间</label>-->
+<!--            <input type="datetime-local" class="form-control" name = "arrivalTime" id="arrivalTime" aria-describedby="arrivalTimeHelp" placeholder="请输入用户到达时间">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：2023-06-15 02:30:51-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;插入预定时间&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="bookingTime">预定时间(可空)</label>-->
+<!--            <input type="text" class="form-control" name = "bookingTime" id="bookingTime" aria-describedby="cardNumHelp" placeholder="请输入用户预定时间">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：2023-06-15 02:30:51-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div style="text-align:center; width:100%;height:100%;margin:0px;">-->
+<!--            <button type="submit" class="btn btn-primary">提交</button>-->
+<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--            <button type="reset" class="btn btn-primary">重置</button>-->
+<!--          </div>-->
+<!--        </form>-->
 
-      </div>
-    </div>
-  </div>
-</div>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
-<!--车辆出场-->
-<!-- 模态框 -->
-<div class="modal fade" id="vichcleout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModaltabel1">输入出场信息</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- 表单 -->
-        <form action="#">
-          <!--插入车牌号-->
-          <div class="form-group">
-            <label for="exampleInputcarId">车牌号</label>
-            <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId1" aria-describedby="carIdHelp" placeholder="请输入车牌号">
-            <div class="invalid-feedback">
-              输入不正确!示例：苏A12345
-            </div>
-          </div>
-          <!--插入用户卡号-->
-          <div class="form-group">
-            <label for="exampleInputcardNum">用户卡号</label>
-            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum1" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">
-            <div class="invalid-feedback">
-              输入不正确!示例：A00001
-            </div>
-          </div>
-          <!--插入用户到达时间-->
-          <div class="form-group">
-            <label for="arrivalTime">离开时间</label>
-            <input type="text" class="form-control" name = "arrivalTime" id="departureTime" aria-describedby="departureTimeHelp" placeholder="请输入用户离开时间">
-            <div class="invalid-feedback">
-              输入不正确!示例：2023-06-15 02:30:51
-            </div>
-          </div>
-          <div style="text-align:center; width:100%;height:100%;margin:0px;">
-            <button type="submit" class="btn btn-primary">提交</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="reset" class="btn btn-primary">重置</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<!--&lt;!&ndash;车辆出场&ndash;&gt;-->
+<!--&lt;!&ndash; 模态框 &ndash;&gt;-->
+<!--<div class="modal fade" id="vichcleout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModaltabel1">输入出场信息</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        &lt;!&ndash; 表单 &ndash;&gt;-->
+<!--        <form action="#">-->
+<!--          &lt;!&ndash;插入车牌号&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="exampleInputcarId">车牌号</label>-->
+<!--            <input type="text" class="form-control" data-toggle="check" name = "carId" id="exampleInputcarId1" aria-describedby="carIdHelp" placeholder="请输入车牌号">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：苏A12345-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;插入用户卡号&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="exampleInputcardNum">用户卡号</label>-->
+<!--            <input type="text" class="form-control" data-toggle='cardNum' name = "cardNum" id="exampleInputcardNum1" aria-describedby="cardNumHelp" placeholder="请输入用户卡号">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：A00001-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;插入用户到达时间&ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="arrivalTime">离开时间</label>-->
+<!--            <input type="text" class="form-control" name = "arrivalTime" id="departureTime" aria-describedby="departureTimeHelp" placeholder="请输入用户离开时间">-->
+<!--            <div class="invalid-feedback">-->
+<!--              输入不正确!示例：2023-06-15 02:30:51-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div style="text-align:center; width:100%;height:100%;margin:0px;">-->
+<!--            <button type="submit" class="btn btn-primary">提交</button>-->
+<!--            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+<!--            <button type="reset" class="btn btn-primary">重置</button>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 </div>

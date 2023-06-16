@@ -22,4 +22,24 @@
             Space_State=#{spaceState}
        WHERE Space_id=#{spaceId}
     </update>
+    <!--修改车位类型-->
+    <update id="updateSpaceType" parameterType="java.lang.String">
+        UPDATE parking_space
+        SET Space_Type=#{spaceType}
+        WHERE Space_Id=#{spaceId}
+    </update>
+    <!--修改车位状态-->
+    <update id="updateSpaceState" parameterType="java.lang.String">
+        UPDATE parking_space
+        SET Space_State=#{spaceState}
+        WHERE Space_Id=#{spaceId}
+    </update>
+    <!--按ID插入车位-->
+    <update id="insertBySpaceId" parameterType="java.lang.String">
+        INSERT INTO parking_space(Space_Type, Space_State)
+        VALUES (#{spaceType},#{spaceState})
+    </update>
+    <update id="updateSpceState">
+
+    </update>
 </mapper>

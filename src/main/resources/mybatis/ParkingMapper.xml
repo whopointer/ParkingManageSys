@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.parkingmanagesys.DAO.ParkingMapper">
+
     <!--根据carId查-->
     <select id="selectByCarId" resultType="Parking" parameterType="java.lang.String">
         SELECT *
@@ -35,5 +36,21 @@
         SELECT count(*)
         FROM parking
     </select>
-
+    <!--修改车位类型-->
+    <update id="updateSpaceType" parameterType="java.lang.String">
+        UPDATE parking_space
+        SET Space_Type=#{spaceType}
+        WHERE Space_Id=#{spaceId}
+    </update>
+    <!--修改车位状态-->
+    <update id="updateSpaceState" parameterType="java.lang.String">
+        UPDATE parking_space
+        SET Space_State=#{spaceState}
+        WHERE Space_Id=#{spaceId}
+    </update>
+    <!--按ID插入车位-->
+    <update id="insertBySpaceId" parameterType="java.lang.String">
+        INSERT INTO parking_space(Space_Type, Space_State)
+        VALUES (#{spaceType},#{spaceState})
+    </update>
 </mapper>
