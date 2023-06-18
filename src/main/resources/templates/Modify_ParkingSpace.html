@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -18,16 +18,16 @@
 
   <!-- 自定义模板字体 -->
   <!--引入名为all.min的CSS文件-->
-  <link href="../static/vendor/fontawesome-free/css/all.min.css" th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+  <link href="../static/vendor/fontawesome-free/css/all.min.css" th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
 
   <!-- 自定义CSS样式 -->
-  <link href="../static/css/sb-admin-2.min.css" th:href="@{css/sb-admin-2.min.css}"rel="stylesheet">
+  <link href="../static/css/sb-admin-2.min.css" th:href="@{/css/sb-admin-2.min.css}"rel="stylesheet">
 
   <!-- 自定义界面 -->
-  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css"th:href="@{vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
+  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css"th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
   <!-- 检查车牌号是否符合标准-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -121,7 +121,7 @@
   <!--检查车牌号格式结束-->
 
   <!-- Custom styles for this template-->
-  <link href="../static/css/sb-admin-2.min.css" th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+  <link href="../static/css/sb-admin-2.min.css" th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
   <script th:inline="javascript">
     var msg = [[${msg}]];
     if(msg!=null)
@@ -146,7 +146,7 @@
   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!--点击左上图标跳转首页-->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../static/index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{index}" href="../static/index.html">
       <!--车场图标-->
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-car"></i>
@@ -159,7 +159,7 @@
 
     <!-- 第一个导航栏 -->
     <li class="nav-item">
-      <a class="nav-link" href="../static/index.html">
+      <a class="nav-link" th:href="@{index}" href="../static/index.html">
         <i class="fas fa-dove"></i>
         <span>车场资讯</span></a>
     </li>
@@ -168,20 +168,10 @@
     <hr class="sidebar-divider">
 
     <!-- 添加副标题 -->
-    <div class="sidebar-heading">
-      查询板块
-    </div>
+
 
 
     <!-- 历史停车 -->
-    <li class="nav-item">
-      <a class="nav-link" href="../static/index.html">
-        <i class="fas fa-history"></i>
-        <span>历史停车</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
@@ -215,7 +205,7 @@
       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">选择需要管理的内容：</h6>
-          <a class="collapse-item" href="#" data-toggle="modal" data-target="#exampleModal">插入车位信息</a>
+          <a class="collapse-item" href="#" data-toggle="modal" data-target="#exampleModal2">插入车位信息</a>
           <a class="collapse-item" href="#" data-toggle="modal" data-target="#updateModal">修改车位信息</a>
         </div>
       </div>
@@ -326,7 +316,6 @@
                   <th>车位号</th>
                   <th>车位类型</th>
                   <th>车位状态</th>
-                  <th>操作</th>
                 </tr>
                 </thead>
                 <tfoot>
@@ -397,7 +386,7 @@
 
 
 <!--插入车位信息-->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -412,7 +401,7 @@
           <!--插入车位类型-->
           <div class="form-group">
             <label for="TypeInputcardType">车位类型</label>
-            <input type="text" class="form-control" name = "cardType" id="TypeInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位类型">
+            <input type="text" class="form-control" name = "spaceType" id="TypeInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位类型">
             <div class="invalid-feedback">
               输入不正确!应为：Permanent 或 Temporary
             </div>
@@ -420,7 +409,7 @@
           <!--插入车位状态-->
           <div class="form-group">
             <label for="StateInputcardType">车位状态</label>
-            <input type="text" class="form-control" name = "cardState" id="StateInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位状态">
+            <input type="text" class="form-control" name = "spaceState" id="StateInputcardType" aria-describedby="cardTypeHelp" placeholder="请输入车位状态">
             <div class="invalid-feedback">
               输入不正确!应为：Busy 或 Spare
             </div>
@@ -438,20 +427,20 @@
 <!--插入用户信息结束-->
 
 
-<!--修改用户信息-->
+<!--修改车位信息-->
 <!-- 模态框 -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="update">修改用户信息</h5>
+        <h5 class="modal-title" id="update">修改车位信息</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <!-- 表单 -->
-        <form action="http://localhost:8080/updateSpace">
+        <form th:action="@{/updateSpace}" action="http://localhost:8080/updateSpace">
           <!--获取车位号-->
           <div class="form-group">
             <label for="TypeInputcardType">输入需要更改信息的车位号</label>

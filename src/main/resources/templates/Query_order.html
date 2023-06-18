@@ -199,7 +199,7 @@
                   <th>订单状态</th>
                 </tr>
                 </tfoot>
-                <tbody th:if="${not #lists.isEmpty(parkingHistoryList)}" th:each="parkingHistory:${parkingHistoryList}">
+                <tbody >
                 <tr class="order-incomplete" th:if="${bookingInformation != null}">
                   <td th:text="${bookingInformation.bookingId ?: 'null'}">null</td>
                   <td th:text="${bookingInformation.spaceId ?: 'null'}">null</td>
@@ -209,11 +209,11 @@
                   <td th:text="${bookingInformation.bookingFee ?: 'null'}">null</td>
                   <td th:text="${bookingInformation.bookingState ?: 'null'}">未进行</td>
                 </tr>
-                <tr class="order-complete">
+                <tr class="order-complete" th:if="${not #lists.isEmpty(parkingHistoryList)}" th:each="parkingHistory:${parkingHistoryList}">
                   <td th:text="${parkingHistory.bookingId  ?: 'null'}">null</td>
                   <td th:text="${parkingHistory.spaceId ?: 'null'}">null</td>
                   <td th:text="${parkingHistory.carId ?: 'null'}">null</td>
-                  <td th:text="${parkingHistory.bookingTime ?: 'null'}">null</td>
+                  <td th:text="${parkingHistory.arrivalTime ?: 'null'}">null</td>
                   <td th:text="${parkingHistory.departureTime ?: 'null'}">null</td>
                   <td th:text="${parkingHistory.bookingFee ?: 'null'}">null</td>
                   <td>已完成</td>

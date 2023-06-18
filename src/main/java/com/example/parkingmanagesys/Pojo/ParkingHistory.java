@@ -7,9 +7,17 @@ public class ParkingHistory {
     private float parkingFee;
     private float bookingFee;
     private Integer spaceId;
-    private Date bookingTime;
     private Date departureTime;
     private Integer bookingId;
+    private Date arrivalTime;
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
 
     public String getCarId() {
         return carId;
@@ -40,14 +48,6 @@ public class ParkingHistory {
 
     public void setSpaceId(Integer spaceId) {
         this.spaceId = spaceId;
-    }
-
-    public Date getBookingTime() {
-        return bookingTime;
-    }
-
-    public void setBookingTime(Date bookingTime) {
-        this.bookingTime = bookingTime;
     }
 
     public void setDepartureTime(Date departureTime) {

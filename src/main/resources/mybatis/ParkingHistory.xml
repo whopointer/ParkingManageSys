@@ -35,9 +35,9 @@
         WHERE Booking_Id=#{bookingId}
     </delete>
 
-    <insert id="insertParkingHistory" parameterType="ParkingHistory">
-        INSERT INTO parking_history(Booking_Id,Space_Id,Car_Id,Booking_Time)
-        VALUES (#{bookingId},#{spaceId},#{carId},#{bookingTime})
+    <insert id="insertInformation" parameterType="ParkingHistory">
+        INSERT INTO parking_history(Booking_Id,Space_Id,Car_Id,Parking_Fee,Booking_Fee,Arrival_Time,Departure_Time)
+        VALUES (#{bookingId},#{spaceId},#{carId},#{parkingFee},#{bookingFee},#{arrivalTime},#{departureTime})
     </insert>
 
     <!--    只改到达时间和费用-->
